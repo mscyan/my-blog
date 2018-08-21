@@ -1,12 +1,10 @@
-package com.blog;
+package com;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(value = "com")
 public class BlogApplication {
 
 	public static void main(String[] args) {
