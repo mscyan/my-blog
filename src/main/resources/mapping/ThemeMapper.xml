@@ -2,7 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <!--对Theme表的操作-->
 <mapper namespace="com.blog.mapper.ThemeMapper">
-    <select id="">
-
+    <select id="getThemeList" resultType="com.blog.bean.Theme">
+      select * from theme
     </select>
+    
+    <select id="getThemeById" parameterType="int" resultType="com.blog.bean.Theme">
+      select * from theme where theme_id = #{theme_id}
+    </select>
+    
+    <insert id="addTheme" parameterType="com.blog.bean.Theme">
+        insert into theme
+        (theme_name)
+        values
+        (
+          #{theme.theme_name}
+        )
+    </insert>
 </mapper>
