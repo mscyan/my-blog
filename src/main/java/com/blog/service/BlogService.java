@@ -1,5 +1,9 @@
 package com.blog.service;
 
+import com.blog.bean.Blog;
+
+import java.util.List;
+
 /**
  * @Author: CYAN
  * @Date: 2018/8/21 22:26
@@ -7,4 +11,5 @@ package com.blog.service;
  **/
 public interface BlogService
 {
+	List<Blog> getBlogList();
 }

@@ -10,7 +10,7 @@
         select * from blog where blog_id = #{blog_id}
     </select>
     
-    <insert id="addBlog" parameterType="com.blog.bean" >
+    <insert id="addBlog" parameterType="com.blog.bean.Blog" >
         insert into blog
         (
           blog_title,blog_desc,start_date,last_modity_date,read_number

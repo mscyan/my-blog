@@ -8,7 +8,7 @@ package com.blog.bean;
 public class Theme
 {
 	private int theme_id;
-	private int theme_name;
+	private String theme_name;
 
 	public int getTheme_id()
 	{
@@ -20,12 +20,12 @@ public class Theme
 		this.theme_id = theme_id;
 	}
 
-	public int getTheme_name()
+	public String getTheme_name()
 	{
 		return theme_name;
 	}
 
-	public void setTheme_name(int theme_name)
+	public void setTheme_name(String theme_name)
 	{
 		this.theme_name = theme_name;
 	}

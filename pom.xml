@@ -66,6 +66,13 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
 		</dependency>
+
+		<!--数据源-->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.0.15</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -87,7 +94,9 @@
                 <!--</dependencies>-->
             <!--</plugin>-->
 		</plugins>
+
 	</build>
+
 
 
 </project>
