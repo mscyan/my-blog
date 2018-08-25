@@ -25,6 +25,7 @@ public class BlogHomeController
 	@RequestMapping(value="/theme")
 	public List<Theme> getThemeList()
 	{
+		System.out.println("controller");
 		List<Theme> themes = themeService.getThemeList();
 		return themes;
 	}
