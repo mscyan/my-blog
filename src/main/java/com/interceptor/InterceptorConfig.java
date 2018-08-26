@@ -10,12 +10,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * @Date: 2018/8/25 11:31
  * @Description:
  **/
-@Configuration
+//@Configuration
 public class InterceptorConfig implements WebMvcConfigurer
 {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry)
 	{
-		registry.addInterceptor(new MyInterceptor()).excludePathPatterns("/blog/*");
+//		registry.addInterceptor(new MyInterceptor()).excludePathPatterns("/blog/*");
 	}
 }

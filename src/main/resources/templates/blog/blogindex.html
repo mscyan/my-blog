@@ -1,10 +1,52 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>Title</title>
+	<script type="text/javascript" src="../../static/js/jquery-3.2.1.js"></script>
+
 </head>
 <body>
+	<!--顶部内容-->
+	<div>
+		top content , nav&info
+	</div>
 
+	<div>
+		<input id="blog_title" type="text" placeholder="标题" /><br/><br>
+		<textarea id="blog_content" rows="5" cols="50" placeholder="内容" ></textarea><br/><br>
+		<select>
+			<option>c++</option>
+			<option>java</option>
+			<option>算法</option>
+		</select>
+		<button id="submit">提交</button>
+	</div>
 </body>
+<script type="text/javascript">
+    $(document).ready(function(){
+        alert("a");
+        $("#submit").click(function(){
+            // var blog_title = "123";//$("#blog_title").value();
+            // var blog_content = "123";//$("#blog_content").value();
+            alert("alert");
+            // $.ajax({
+            //     url:"/blog/addblog",
+            //     type: "POST",
+            //     dataType: "text",
+            //     data:{
+            //         "blog_title":blog_title,
+            //         "blog_content":blog_content
+            //     },
+            //     success:function(data){
+            //         alert(data);
+            //     },
+            //     error:function(data){
+            // 	alert(data);
+            //     }
+            // })
+        })
+    })
+</script>
 </html>
