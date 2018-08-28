@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--对博客表的操作-->
+<mapper namespace="com.blog.mapper.TempBlogMapper">
+    <select id="getTempBlogList" resultType="com.blog.bean.TempBlog">
+        select * from temp_blog
+    </select>
+
+    <select id="getTempBlogById" parameterType="int" resultType="com.blog.bean.TempBlog">
+        select * from temp_blog where blog_id = #{blog_id}
+    </select>
+
+    <insert id="addTempBlog" parameterType="com.blog.bean.TempBlog" >
+        insert into temp_blog
+        (
+        blog_title,blog_content,blog_desc,start_date
+        )
+        values
+        (
+        #{blog.blog_title},{blog.blog_content},#{blog.blog_desc},#{blog.start_date}
+        )
+    </insert>
+
+    <update id="updateTempBlog" parameterType="com.blog.bean.TempBlog">
+        update temp_blog set
+        blog_title = #{blog.blog_title},
+        blog_content = #{blog.blog_content},
+        blog_desc = #{blog.blog_desc},
+        start_date = #{blog.start_date}
+        where blog_id = #{blog.blog_id}
+    </update>
+</mapper>

@@ -26,26 +26,25 @@
 </body>
 <script type="text/javascript">
     $(document).ready(function(){
-        alert("a");
+        // alert("a");
         $("#submit").click(function(){
-            // var blog_title = "123";//$("#blog_title").value();
-            // var blog_content = "123";//$("#blog_content").value();
-            alert("alert");
-            // $.ajax({
-            //     url:"/blog/addblog",
-            //     type: "POST",
-            //     dataType: "text",
-            //     data:{
-            //         "blog_title":blog_title,
-            //         "blog_content":blog_content
-            //     },
-            //     success:function(data){
-            //         alert(data);
-            //     },
-            //     error:function(data){
-            // 	alert(data);
-            //     }
-            // })
+            var blog_title = $("#blog_title").val()
+            var blog_content = $("#blog_content").val();
+            $.ajax({
+                url:"/blog/addblog",
+                type: "POST",
+                dataType: "text",
+                data:{
+                    "blog_title":blog_title,
+                    "blog_content":blog_content
+                },
+                success:function(data){
+                    alert(data);
+                },
+                error:function(data){
+            		alert(data);
+                }
+            })
         })
     })
 </script>

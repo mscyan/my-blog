@@ -11,11 +11,21 @@ public class Blog
 {
 	private int blog_id;
 	private String blog_title;
+	private String blog_content;
 	private String blog_desc;
 	private Date start_date;
 	private Date last_modify_date;
 	private int read_number;
 	//	private String author;个人使用，不需要作者信息
+
+
+	public String getBlog_content() {
+		return blog_content;
+	}
+
+	public void setBlog_content(String blog_content) {
+		this.blog_content = blog_content;
+	}
 
 	public String getBlog_desc()
 	{
