@@ -16,9 +16,9 @@ public interface BlogMapper
 {
 	List<Blog> getBlogList();
 
-	Blog getBlogById(int blog_id);
+	Blog getBlogById(@Param("blog_id") int blog_id);
 
 	int addBlog(@Param("blog") Blog blog);
 
-	Blog updateBlog(Blog blog);
+	Blog updateBlog(@Param("blog") Blog blog);
 }

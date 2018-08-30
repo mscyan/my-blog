@@ -2,6 +2,7 @@ package com.blog.mapper;
 
 import com.blog.bean.Theme;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -15,9 +16,9 @@ public interface ThemeMapper
 {
 	List<Theme> getThemeList();
 
-	Theme getThemeById(int theme_id);
+	Theme getThemeById(@Param("theme_id") int theme_id);
 
-	boolean addTheme(Theme theme);
+	boolean addTheme(@Param("theme") Theme theme);
 
-	boolean updateTheme(Theme theme);
+	boolean updateTheme(@Param("theme") Theme theme);
 }
