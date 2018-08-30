@@ -31,7 +31,7 @@
             var blog_title = $("#blog_title").val()
             var blog_content = $("#blog_content").val();
             $.ajax({
-                url:"/blog/addblog",
+                url:"/blog/add_blog",
                 type: "POST",
                 dataType: "text",
                 data:{
@@ -42,7 +42,7 @@
                     alert(data);
                 },
                 error:function(data){
-            		alert(data);
+            		alert("content");
                 }
             })
         })

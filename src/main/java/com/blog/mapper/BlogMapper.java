@@ -2,6 +2,7 @@ package com.blog.mapper;
 
 import com.blog.bean.Blog;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public interface BlogMapper
 
 	Blog getBlogById(int blog_id);
 
-	boolean addBlog(Blog blog);
+	int addBlog(@Param("blog") Blog blog);
 
-	boolean updateBlog(Blog blog);
+	Blog updateBlog(Blog blog);
 }

@@ -24,4 +24,14 @@ public class BlogServiceImp implements BlogService
 	{
 		return blogMapper.getBlogList();
 	}
+
+	@Override
+	public int addBlog(Blog blog) {
+		return blogMapper.addBlog(blog);
+	}
+
+	@Override
+	public Blog updateBlog(Blog blog) {
+		return blogMapper.updateBlog(blog);
+	}
 }

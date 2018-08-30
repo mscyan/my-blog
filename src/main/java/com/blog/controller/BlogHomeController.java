@@ -1,7 +1,9 @@
 package com.blog.controller;
 
 import com.blog.bean.Blog;
+import com.blog.bean.TempBlog;
 import com.blog.bean.Theme;
+import com.blog.service.BlogService;
 import com.blog.service.ThemeService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,44 +27,70 @@ import java.util.List;
 public class BlogHomeController
 {
 	@Autowired
-	private ThemeService themeService;
+	private BlogService blogService;
 
 	@RequestMapping(value="/index")
 	public ModelAndView index()
 	{
-		ModelAndView model = new ModelAndView("/blog/blogindex.html");
+		ModelAndView model = new ModelAndView("/blog/blogindex");
 		return model;
 	}
 
 	@ResponseBody
-	@RequestMapping(value="/theme")
-	public List<Theme> getThemeList()
-	{
-		System.out.println("controller");
-		List<Theme> themes = themeService.getThemeList();
-		return themes;
-	}
-
-	@ResponseBody
-	@RequestMapping(value="/addblog")
+	@RequestMapping(value="/add_blog")
 	public String addBlog(@RequestParam String blog_title,@RequestParam String blog_content)
 	{
-
 		System.out.println(blog_title+"\n"+blog_content);
+		Blog blog = new Blog();
+		blog.setBlog_title(blog_title);
+		blog.setBlog_content(blog_content);
+		blog.setBlog_desc("描述");
+		blog.setRead_number(0);
+		blog.setStart_date(new Date());
+		blog.setLast_modify_date(new Date());
+		int result_blog = blogService.addBlog(blog);
+		System.out.println("blog_id : "+result_blog);
 		return "success";
 	}
 
-	@RequestMapping(value="/deleteblog")
+	@RequestMapping(value="/delete_blog")
 	@ResponseBody
 	public String deleteBlog(@RequestParam int blog_id)
 	{
-
 		return "success";
 	}
 
 	@ResponseBody
-	@RequestMapping(value="/updateblog")
+	@RequestMapping(value="/update_blog")
 	public String updateBlog(@RequestParam Blog blog)
+	{
+		return "success";
+	}
+
+	@ResponseBody
+	@RequestMapping(value="/get_blog")
+	public List<Blog> getBlog()
+	{
+		List<Blog> blogs = blogService.getBlogList();
+		return blogs;
+	}
+
+	/**
+	 *
+	 * @param tempBlog
+	 * @return
+	 * description 快速保存，在编写博客文章时会随时保存一个temp blog，避免丢失
+	 */
+	@ResponseBody
+	@RequestMapping(value="/save_tempblog")
+	public String addTempBlog(@RequestParam TempBlog tempBlog)
+	{
+		return "success";
+	}
+
+	@ResponseBody
+	@RequestMapping(value="/update_tempblog")
+	public String updateTempBlog(@RequestParam TempBlog tempBlog)
 	{
 		return "success";
 	}

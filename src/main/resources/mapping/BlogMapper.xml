@@ -10,15 +10,19 @@
         select * from blog where blog_id = #{blog_id}
     </select>
     
-    <insert id="addBlog" parameterType="com.blog.bean.Blog" >
+    <insert id="addBlog" useGeneratedKeys="true" keyColumn="blog_id" keyProperty="blog_id" parameterType="com.blog.bean.Blog" >
+        <selectKey keyProperty="blog.blog_id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
         insert into blog
         (
-          blog_title,blog_content,blog_desc,start_date,last_modity_date,read_number
+          blog_title,blog_content,blog_desc,start_date,last_modify_date,read_number
         )
         values
         (
-          #{blog.blog_title},{blog.blog_content},#{blog.blog_desc},#{blog.start_date},#{blog.last_modity_date},#{blog.read_number},
+          #{blog.blog_title},#{blog.blog_content},#{blog.blog_desc},#{blog.start_date},#{blog.last_modify_date},#{blog.read_number}
         )
+
     </insert>
     
     <update id="updateBlog" parameterType="com.blog.bean.Blog">

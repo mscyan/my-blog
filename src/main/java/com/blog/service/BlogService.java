@@ -12,4 +12,8 @@ import java.util.List;
 public interface BlogService
 {
 	List<Blog> getBlogList();
+
+	int addBlog(Blog blog);
+
+	Blog updateBlog(Blog blog);
 }
