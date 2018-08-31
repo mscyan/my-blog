@@ -1,6 +1,7 @@
 package com.blog.controller;
 
 import com.blog.bean.Blog;
+import com.blog.bean.BlogType;
 import com.blog.bean.TempBlog;
 import com.blog.bean.Theme;
 import com.blog.service.BlogService;
@@ -48,6 +49,7 @@ public class BlogHomeController
 		blog.setRead_number(0);
 		blog.setStart_date(new Date());
 		blog.setLast_modify_date(new Date());
+		blog.setBlog_type(BlogType.TEXT);
 		int result_blog = blogService.addBlog(blog);
 		System.out.println("blog_id : "+result_blog);
 		return "success";
