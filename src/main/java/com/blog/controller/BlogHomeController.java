@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import sun.misc.Unsafe;
 
+import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.List;
 
@@ -39,8 +41,7 @@ public class BlogHomeController
 
 	@ResponseBody
 	@RequestMapping(value="/add_blog")
-	public String addBlog(@RequestParam String blog_title,@RequestParam String blog_content)
-	{
+	public String addBlog(@RequestParam String blog_title,@RequestParam String blog_content) throws NoSuchFieldException {
 		System.out.println(blog_title+"\n"+blog_content);
 		Blog blog = new Blog();
 		blog.setBlog_title(blog_title);
