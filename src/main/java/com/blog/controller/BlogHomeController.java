@@ -35,7 +35,7 @@ public class BlogHomeController
 	@RequestMapping(value="/index")
 	public ModelAndView index()
 	{
-		ModelAndView model = new ModelAndView("/blog/blogindex");
+		ModelAndView model = new ModelAndView("/index");
 		return model;
 	}
 

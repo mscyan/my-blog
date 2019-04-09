@@ -1,113 +1,130 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.blog</groupId>
-	<artifactId>blog</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+    <groupId>com.blog</groupId>
+    <artifactId>blog</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
-	<name>blog</name>
-	<description>my blog project</description>
+    <name>blog</name>
+    <description>my blog project</description>
 
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.3.RELEASE</version>
-		<relativePath/>
-	</parent>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.3.RELEASE</version>
+        <relativePath/>
+    </parent>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
 
-		<!--Mybatis依赖版本-->
-		<mybatis-spring-boot>1.2.0</mybatis-spring-boot>
-		<mysql-connector>5.1.39</mysql-connector>
-		<docker.image.prefix>springboot</docker.image.prefix>
-	</properties>
+        <!--Mybatis依赖版本-->
+        <mybatis-spring-boot>1.2.0</mybatis-spring-boot>
+        <mysql-connector>5.1.39</mysql-connector>
+        <docker.image.prefix>springboot</docker.image.prefix>
+    </properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
 
-		<!-- 模板引擎 Thymeleaf 依赖 -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
+        <!-- 模板引擎 Thymeleaf 依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
 
-		<!-- Spring Boot Mybatis 依赖 -->
-		<dependency>
-			<groupId>org.mybatis.spring.boot</groupId>
-			<artifactId>mybatis-spring-boot-starter</artifactId>
-			<version>${mybatis-spring-boot}</version>
-		</dependency>
+        <!-- Spring Boot Mybatis 依赖 -->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>${mybatis-spring-boot}</version>
+        </dependency>
 
-		<!-- MySQL 连接驱动依赖 -->
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>${mysql-connector}</version>
-		</dependency>
+        <!-- MySQL 连接驱动依赖 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector}</version>
+        </dependency>
 
-		<!--热部署-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<optional>true</optional>
-		</dependency>
+        <!--热部署-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
 
-		<!--数据源-->
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>druid</artifactId>
-			<version>1.0.15</version>
-		</dependency>
+        <!--数据源-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.0.15</version>
+        </dependency>
 
-	</dependencies>
+    </dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<fork>true</fork>
-				</configuration>
-			</plugin>
-			<!-- Docker maven plugin -->
-			<plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>docker-maven-plugin</artifactId>
-				<version>1.0.0</version>
-				<configuration>
-					<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
-					<dockerDirectory>src/main/docker</dockerDirectory>
-					<resources>
-						<resource>
-							<targetPath>/</targetPath>
-							<directory>${project.build.directory}</directory>
-							<include>${project.build.finalName}.jar</include>
-						</resource>
-					</resources>
-				</configuration>
-			</plugin>
-			<!-- Docker maven plugin -->
-		</plugins>
 
-	</build>
+    <build>
+        <finalName>myblog</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <!--<jvmArguments>-Dfile.encoding=UTF-8</jvmArguments>-->
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <!--<build>-->
+    <!--<plugins>-->
+    <!--<plugin>-->
+    <!--<groupId>org.springframework.boot</groupId>-->
+    <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
+    <!--<configuration>-->
+    <!--<fork>true</fork>-->
+    <!--</configuration>-->
+    <!--</plugin>-->
+    <!--&lt;!&ndash; Docker maven plugin &ndash;&gt;-->
+    <!--&lt;!&ndash;<plugin>&ndash;&gt;-->
+    <!--&lt;!&ndash;<groupId>com.spotify</groupId>&ndash;&gt;-->
+    <!--&lt;!&ndash;<artifactId>docker-maven-plugin</artifactId>&ndash;&gt;-->
+    <!--&lt;!&ndash;<version>1.0.0</version>&ndash;&gt;-->
+    <!--&lt;!&ndash;<configuration>&ndash;&gt;-->
+    <!--&lt;!&ndash;<imageName>${docker.image.prefix}/${project.artifactId}</imageName>&ndash;&gt;-->
+    <!--&lt;!&ndash;<dockerDirectory>src/main/docker</dockerDirectory>&ndash;&gt;-->
+    <!--&lt;!&ndash;<resources>&ndash;&gt;-->
+    <!--&lt;!&ndash;<resource>&ndash;&gt;-->
+    <!--&lt;!&ndash;<targetPath>/</targetPath>&ndash;&gt;-->
+    <!--&lt;!&ndash;<directory>${project.build.directory}</directory>&ndash;&gt;-->
+    <!--&lt;!&ndash;<include>${project.build.finalName}.jar</include>&ndash;&gt;-->
+    <!--&lt;!&ndash;</resource>&ndash;&gt;-->
+    <!--&lt;!&ndash;</resources>&ndash;&gt;-->
+    <!--&lt;!&ndash;</configuration>&ndash;&gt;-->
+    <!--&lt;!&ndash;</plugin>&ndash;&gt;-->
+    <!--&lt;!&ndash; Docker maven plugin &ndash;&gt;-->
+    <!--</plugins>-->
 
+    <!--</build>-->
 
 
 </project>
