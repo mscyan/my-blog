@@ -36,3 +36,11 @@ github项目信息，leetcode刷题信息
 2018.8.31
     为单篇blog分配theme，如一篇blog会涉及springboot，java等
     主题，以后可以根据主题搜索相关文章
+
+2019.04.17
+    梳理架构
+    / 路径对应主页
+    /blog/* 对应博客
+    /todo/* 对应todolist的开发内容
+
+    todo功能需要优先做好。
