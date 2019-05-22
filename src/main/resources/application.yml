@@ -1,15 +1,13 @@
 server:
-  port: 80
+  port: 8080
 
 #数据库
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-#    url: jdbc:mysql://localhost:3306/interview
-    url: jdbc:mysql://cdb-kw4y0d0r.gz.tencentcdb.com:10022/myblog
-#    username: root
-#    password: 1234
-#    password: passwordfordb1$
+    url: jdbc:mysql://47.101.54.248:3306/myblog
+    username: root
+    password: 1234
   devtools:
     livereload:
       enabled: true
