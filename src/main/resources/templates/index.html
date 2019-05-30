@@ -4,8 +4,25 @@
 	<meta charset="UTF-8">
 	<title>Title</title>
 	<link rel="stylesheet" href="../static/uikit/uikit-2.25.0/css/uikit.min.css" />
+    <!--<link rel="stylesheet" href="../static/uikit/uikit-2.25.0/css/components/slidenav.gradient.css" />-->
 	<!--<link rel="stylesheet" href="/static/uikit/uikit-2.25.0/css/uikit.css" />-->
 	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <style>
+        .word-black{
+            color: #000;
+        }
+        .word-white{
+            color: #fff;
+        }
+        .nav-li{
+            width: 100%;
+            text-align: center;
+            display: block;
+        }
+        li{
+            list-style-type: none;
+        }
+    </style>
 </head>
 <body>
 	<div class="uk-block uk-block-secondary uk-contrast">
@@ -15,22 +32,42 @@
 		<div class="uk-container uk-container-center">
 			<span><a target="_blank" href="https://github.com/mscyan" class="uk-icon-button uk-icon-hover uk-icon-github icon"></a></span>
 			<span><a target="_blank" href="https://stackoverflow.com/users/8979577/yanchao" class="uk-icon-button uk-icon-hover uk-icon-stack-overflow icon"></a></span>
-			<span><a target="_blank" href="" class="uk-icon-button uk-icon-code-fork"></a> </span>
-			<span><a class="uk-icon-button uk-icon-search uk-align-right"></a></span>
+			<!--<span><a target="_blank" href="" class="uk-icon-button uk-icon-code-fork"></a> </span>-->
+			<!--<span><a class="uk-icon-button uk-icon-search uk-align-right"></a></span>-->
 		</div>
 	</div>
 	<div class="uk-block">
-		<div class="uk-container-center uk-contrast uk-container">
-			页面主要内容
+		<div class="uk-container-center uk-container">
+			<!--页面主要内容-->
 			<div class="uk-flex">
-				<div class="uk-width-1-4" style="background-color:#ee465a">
-					<ul>
-						<li>Todo</li>
-						<li>文章</li>
-					</ul>
+				<!--<div class="uk-width-1-4 uk-panel uk-panel-box" style="background-color:#ee465a">-->
+				<div class="uk-width-1-4 uk-panel uk-panel-box">
+                    <ul class="uk-nav uk-nav-dropdown uk-nav-parent-icon">
+                        <li class="nav-li"><a href="#">博客</a></li>
+                        <li class="nav-li"><a href="#">分类</a></li>
+                    </ul>
 				</div>
-				<div class="uk-width-3-4" style="background-color:#00a8e6">
-					content
+				<div class="uk-width-3-4 uk-container" style="background-color:#fff">
+                    <div >
+                        <ul>
+                            <li>
+                                <article class="uk-article">
+                                    <h1 class="uk-article-title">Title 标题</h1>
+                                    <p class="uk-article-meta">from yan 2019</p>
+                                    <p class="uk-article-lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <hr class="uk-article-divider">
+                                </article>
+                            </li>
+                            <li>
+                                <article class="uk-article">
+                                    <h2 class="uk-article-title">Title Title</h2>
+                                    <p class="uk-article-meta">from yan 2019</p>
+                                    <p class="uk-article-lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <hr class="uk-article-divider">
+                                </article>
+                            </li>
+                        </ul>
+                    </div>
 				</div>
 			</div>
 		</div>
