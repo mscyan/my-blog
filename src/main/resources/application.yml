@@ -22,7 +22,7 @@ spring:
 #mybatis配置
 mybatis:
   type-aliases-package: com.*.mapper
-  mapper-locations: classpath:mapping/*.xml
+  mapper-locations: classpath:mapping/*/*.xml
 
 #显示sql语句
 logging:
