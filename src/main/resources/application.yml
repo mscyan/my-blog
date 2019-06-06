@@ -5,9 +5,15 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://47.101.54.248:3306/myblog
+    url: jdbc:mysql://47.101.54.248:3306/myblog?useSSL=true&charset=utf8
     username: root
     password: 1234
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-wait: 50000
+      test-while-idle: true
   devtools:
     livereload:
       enabled: true
@@ -18,11 +24,16 @@ spring:
     static-path-pattern: /static/**
   resources:
     static-locations: classpath:/static
+  servlet:
+    multipart:
+      max-file-size: 10MB
+  jpa:
+    show-sql: true
 
 #mybatis配置
 mybatis:
   type-aliases-package: com.*.mapper
-  mapper-locations: classpath:mapping/*/*.xml
+  mapper-locations: classpath:mapping/*Mapping.xml
 
 #显示sql语句
 logging:
@@ -30,3 +41,6 @@ logging:
     com:
       blog:
         mapper: debug
+
+pic_folder: C:\\Users\\Akazam\\Desktop\\simages
+pic_save_path: C:\\Users\\Akazam\\Desktop

@@ -1,13 +1,14 @@
 package com.pic.service;
 
-import com.sun.deploy.net.HttpResponse;
-import org.springframework.http.HttpRequest;
-import org.springframework.stereotype.Service;
+import com.utils.ResponseData;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public interface PicService {
 
-    void returnPic(HttpServletRequest request, HttpServletResponse response, String picName);
+    ResponseData returnPic(HttpServletRequest request, HttpServletResponse response, String picName);
+
+    ResponseData uploadPic(MultipartFile file);
 }

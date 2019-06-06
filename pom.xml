@@ -30,6 +30,13 @@
     </properties>
 
     <dependencies>
+        <!--文件上传依赖-->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -71,8 +78,8 @@
         <!--数据源-->
         <dependency>
             <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-            <version>1.0.15</version>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.1.9</version>
         </dependency>
 
     </dependencies>
@@ -95,36 +102,5 @@
             </plugin>
         </plugins>
     </build>
-    <!--<build>-->
-    <!--<plugins>-->
-    <!--<plugin>-->
-    <!--<groupId>org.springframework.boot</groupId>-->
-    <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
-    <!--<configuration>-->
-    <!--<fork>true</fork>-->
-    <!--</configuration>-->
-    <!--</plugin>-->
-    <!--&lt;!&ndash; Docker maven plugin &ndash;&gt;-->
-    <!--&lt;!&ndash;<plugin>&ndash;&gt;-->
-    <!--&lt;!&ndash;<groupId>com.spotify</groupId>&ndash;&gt;-->
-    <!--&lt;!&ndash;<artifactId>docker-maven-plugin</artifactId>&ndash;&gt;-->
-    <!--&lt;!&ndash;<version>1.0.0</version>&ndash;&gt;-->
-    <!--&lt;!&ndash;<configuration>&ndash;&gt;-->
-    <!--&lt;!&ndash;<imageName>${docker.image.prefix}/${project.artifactId}</imageName>&ndash;&gt;-->
-    <!--&lt;!&ndash;<dockerDirectory>src/main/docker</dockerDirectory>&ndash;&gt;-->
-    <!--&lt;!&ndash;<resources>&ndash;&gt;-->
-    <!--&lt;!&ndash;<resource>&ndash;&gt;-->
-    <!--&lt;!&ndash;<targetPath>/</targetPath>&ndash;&gt;-->
-    <!--&lt;!&ndash;<directory>${project.build.directory}</directory>&ndash;&gt;-->
-    <!--&lt;!&ndash;<include>${project.build.finalName}.jar</include>&ndash;&gt;-->
-    <!--&lt;!&ndash;</resource>&ndash;&gt;-->
-    <!--&lt;!&ndash;</resources>&ndash;&gt;-->
-    <!--&lt;!&ndash;</configuration>&ndash;&gt;-->
-    <!--&lt;!&ndash;</plugin>&ndash;&gt;-->
-    <!--&lt;!&ndash; Docker maven plugin &ndash;&gt;-->
-    <!--</plugins>-->
-
-    <!--</build>-->
-
 
 </project>

@@ -18,6 +18,9 @@ spring:
     static-path-pattern: /static/**
   resources:
     static-locations: classpath:/static
+  servlet:
+      multipart:
+        max-file-size: 10MB
 
 #mybatis配置
 mybatis:
@@ -30,3 +33,6 @@ logging:
     com:
       blog:
         mapper: debug
+
+pic_folder: C:\\Users\\Akazam\\Desktop\\simages
+pic_save_path: C:\\Users\\Akazam\\Desktop
