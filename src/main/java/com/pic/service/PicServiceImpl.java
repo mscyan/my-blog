@@ -31,8 +31,13 @@ public class PicServiceImpl implements PicService {
 
     @Override
     public ResponseData returnPic(HttpServletRequest request, HttpServletResponse response, String picName) {
-        //todo 后续操作，不使用 图片uri的base64编码进行访问，转而使用id进行访问
-        Picture picture = pictureMapper.getPictureByB64(picName);
+        Integer id = 40;
+        try {
+            id = Integer.parseInt(Base64Util.decode(picName));
+        } catch (Exception e){
+            //do nothing return the default pic NUMBER
+        }
+        Picture picture = pictureMapper.getPictureById(id);
         if(picture != null){
             String path = Base64Util.decode(picture.getGiven_uri());
             try {
@@ -56,7 +61,6 @@ public class PicServiceImpl implements PicService {
                 return new ResponseData(200, picture, "");
             }
             catch (Exception e){
-                //todo 返回默认的一张图片
                 return new ResponseData(500, "error", "");
             }
         }
@@ -76,10 +80,11 @@ public class PicServiceImpl implements PicService {
     public ResponseData uploadPic(MultipartFile file) {
         try {
             String savePath = configurations.getPic_save_path() + File.separator + file.getOriginalFilename();
-            pictureMapper.insertPicture(new Picture(savePath, Base64Util.encode(savePath), 0));
+            Picture picture = new Picture(savePath, Base64Util.encode(savePath), 0);
+            pictureMapper.insertPicture(picture);
             byte[] bytes = file.getBytes();
             Files.write(Paths.get(savePath), bytes);
-            return new ResponseData(200, "success", Base64Util.encode(savePath));
+            return new ResponseData(200, Base64Util.encode(String.valueOf(picture.getId())), "");
         } catch (Exception ignored){
             ignored.printStackTrace();
             return new ResponseData(500, "error", ignored.getMessage());

@@ -18,19 +18,14 @@ import java.util.Properties;
 @Api(value = "Home", description = "Home", tags = "主页")
 public class HomeController {
 
-    @Autowired
-    private Configurations configurations;
-
     @RequestMapping(value = "home", method = RequestMethod.GET)
     @ResponseBody
     public String home(){
-        System.out.println(configurations.getPic_folder());
         return "hello world " + new Date();
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index_default(){
-        System.out.println(configurations.getPic_folder());
         return "/index.html";
     }
 
@@ -41,9 +36,16 @@ public class HomeController {
     }
 
     public static void main(String[] args){
-//        System.out.println(Base64Util.encode("你好你好你"));
-        System.out.println(Base64Util.decode("QzpcXFVzZXJzXFxBa2F6YW1cXERlc2t0b3BcUVHlm77niYcyMDE5MDUyMjE4MjgwOS5naWY="));
-//
-        System.out.println("C:\\\\Users\\\\Akazam\\\\Desktop\\\\simages".length());
+
+        Integer x = null;
+        try {
+            x = Integer.parseInt("xcx");
+        } catch (Exception e){
+
+        }
+        System.out.println(x);
+//        System.out.println(Base64Util.decode("QzpcXFVzZXJzXFxBa2F6YW1cXERlc2t0b3BcUVHlm77niYcyMDE5MDUyMjE4MjgwOS5naWY="));
+////
+//        System.out.println("C:\\\\Users\\\\Akazam\\\\Desktop\\\\simages".length());
     }
 }

@@ -10,6 +10,15 @@
     <input type="file" name="file" id="file"/>
     <button type="button" onclick="upload_file('/pic/putpic', 'PUT')">uploadNOW</button>
 </div>
-<!-- todo 添加图片显示区域，每切换一张备选图片，右边都实时显示出来-->
+    <div>
+        <label for="upload_img_div"></label>
+        <div>
+            <img width="200px" id="review" src="/pic/getpic/NDA=" />
+        </div>
+        <div>
+            <label for="short_link">短链接为</label>
+            <div id="short_link"></div>
+        </div>
+    </div>
 </body>
 </html>

@@ -4,13 +4,10 @@
 
 <mapper namespace="com.pic.mapper.PictureMapper">
 
-    <insert id="insertPicture" parameterType="com.pic.bean.Picture" useGeneratedKeys="true">
+    <insert id="insertPicture" parameterType="com.pic.bean.Picture" keyProperty="picture.id" useGeneratedKeys="true" >
         insert into pic_save (pic_path, given_uri, fetch_count)
         VALUES
         (#{picture.pic_path}, #{picture.given_uri}, #{picture.fetch_count})
-        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-            select last_insert_id()
-        </selectKey>
     </insert>
 
     <select id="getPictureByB64" parameterType="java.lang.String" resultType="com.pic.bean.Picture">

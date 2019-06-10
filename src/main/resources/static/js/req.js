@@ -22,14 +22,17 @@ function upload_file(url, method){
         else{
             var tailName = totalName.substring(totalName.lastIndexOf('.') + 1, totalName.length);
             if(tailName === 'jpg' || tailName === 'png' || tailName === "jpeg" || tailName === "gif"){
-                const fd = new FormData();
+                var fd = new FormData();
                 fd.append('file', fileBtn.files[0]);
-                const xhr = new XMLHttpRequest();
+                var xhr = new XMLHttpRequest();
                 xhr.open(method, url, true);
                 xhr.send(fd);
                 xhr.onreadystatechange = function(){
                     if(xhr.readyState === 4 && xhr.status === 200){
-                        console.log("res is ", xhr.responseText);
+                        var response  = JSON.parse(xhr.responseText);
+                        var link = response.response_data;
+                        document.getElementById('review').src = '/pic/getpic/' + link;
+                        document.getElementById("short_link").innerText = '/pic/getpic/' + link;
                     }
                 }
             }
@@ -40,4 +43,4 @@ function upload_file(url, method){
     }
 }
 
-console.log("readY");
+

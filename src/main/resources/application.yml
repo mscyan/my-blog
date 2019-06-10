@@ -33,5 +33,5 @@ logging:
       blog:
         mapper: debug
 
-pic_folder: C:\\Users\\Akazam\\Desktop\\simages
-pic_save_path: C:\\Users\\Akazam\\Desktop
+pic_folder: C:\\Users\\yanchao\\Desktop\\simages
+pic_save_path: C:\\Users\\yanchao\\Desktop
