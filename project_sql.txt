@@ -7,7 +7,8 @@ create table blog
   content text,
   commit_date datetime,
   lasted_update_date datetime,
-  read_count int
+  read_count int not null default 0,
+  readable int not null default 1
 ) character set utf8mb4;
 
 create table theme
@@ -26,7 +27,7 @@ create table blog_theme
 create table pic_save
 (
   id int primary key auto_increment,
-  pic_path varchar(50) not null,
-  given_uri varchar(200) not null,
+  pic_path varchar(85) not null,
+  given_uri varchar(240) not null,
   fetch_count int not null default 0
-);
+) charset utf8mb4;

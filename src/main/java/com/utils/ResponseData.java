@@ -6,6 +6,12 @@ public class ResponseData {
     private Object response_data;
     private String remark;
 
+    public ResponseData(){
+        this.response_code = 200;
+        this.response_data = null;
+        this.remark = null;
+    }
+
     public ResponseData(int response_code, Object response_data, String remark) {
         this.response_code = response_code;
         this.response_data = response_data;

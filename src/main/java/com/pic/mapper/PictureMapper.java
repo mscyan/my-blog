@@ -10,5 +10,10 @@ public interface PictureMapper {
 
     void insertPicture(@Param("picture") Picture picture);
 
+    void increaseFetchCount(@Param("picId")int picId,
+                            @Param("fetchCount") int fetchCount);
+
+    Picture getPictureById(@Param("picId") int picId);
+
     Picture getPictureByB64(@Param("given_uri") String given_uri);
 }

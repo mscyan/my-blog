@@ -44,4 +44,11 @@ public class Picture {
         this.given_uri = given_uri;
         this.fetch_count = fetch_count;
     }
+
+    public Picture(Integer id, String pic_path, String given_uri, Integer fetch_count) {
+        this.id = id;
+        this.pic_path = pic_path;
+        this.given_uri = given_uri;
+        this.fetch_count = fetch_count;
+    }
 }

@@ -17,4 +17,12 @@
         select * from pic_save where given_uri = #{given_uri}
     </select>
 
+    <select id="getPictureById" parameterType="java.lang.Integer" resultType="com.pic.bean.Picture">
+        select * from pic_save where id = #{picId}
+    </select>
+
+    <update id="increaseFetchCount" parameterType="java.lang.Integer" >
+        update pic_save set fetch_count = #{fetchCount} where id = #{picId}
+    </update>
+
 </mapper>

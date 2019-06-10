@@ -34,5 +34,5 @@ logging:
       blog:
         mapper: debug
 
-pic_folder: ~/person_files
-pic_save_path: ~/person_files
+pic_folder: /home/yanchao/person_files
+pic_save_path: /home/yanchao/person_files

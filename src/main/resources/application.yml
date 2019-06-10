@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8082
 
 #数据库
 spring:
@@ -17,18 +17,9 @@ spring:
   devtools:
     livereload:
       enabled: true
-  thymeleaf:
-    prefix: classpath:/templates
-    suffix: .html
-  mvc:
-    static-path-pattern: /static/**
-  resources:
-    static-locations: classpath:/static
   servlet:
     multipart:
       max-file-size: 10MB
-  jpa:
-    show-sql: true
 
 #mybatis配置
 mybatis:

@@ -2,11 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>uploadpic</title>
+    <title>图片上传</title>
+    <script type="text/javascript" src="/static/js/req.js" ></script>
 </head>
 <body>
-    <div id="upload_img_div">
-        <input type="file" />
-    </div>
+<div id="upload_img_div">
+    <input type="file" name="file" id="file"/>
+    <button type="button" onclick="upload_file('/pic/putpic', 'PUT')">uploadNOW</button>
+</div>
+<!-- todo 添加图片显示区域，每切换一张备选图片，右边都实时显示出来-->
 </body>
 </html>
