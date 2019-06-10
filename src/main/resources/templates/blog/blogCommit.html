@@ -1,8 +1,25 @@
 <html>
     <head>
-
+        <meta charset="UTF-8">
+        <title>博客上传</title>
     </head>
     <body>
+        <!--上传策略： txt or .md文件
+            如果是txt，则需要分别填写 title， abstract， 和设置各种样式
+            如果是.md文件，则直接上传并设置转换即可，但title和abstract也需要额外设置
+        -->
+        <div>
+            <label for="title" >标题</label><br />
+            <input type="text" id="title" /><br />
+
+            <label for="abstract" >概要</label><br />
+            <input type="text" id="abstract" /><br />
+
+            <label for="contentFile" >markdown文件</label><br />
+            <input type="file" id="contentFile" /><br />
+        </div>
+
+        <button type="button" onclick="" >提交</button>
 
     </body>
 </html>
