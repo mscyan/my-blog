@@ -20,6 +20,8 @@ spring:
   servlet:
     multipart:
       max-file-size: 10MB
+  aop:
+    auto: true
 
 #mybatis配置
 mybatis:
