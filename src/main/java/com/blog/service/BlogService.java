@@ -18,4 +18,6 @@ public interface BlogService {
     ResponseData deleteBlogById_unreal(int id);
 
     ResponseData deleteBlogById_real(int id);
+
+    ResponseData testTransactionService(Blog blog);
 }

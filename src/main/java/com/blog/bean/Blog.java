@@ -10,6 +10,7 @@ public class Blog {
     private String commit_date;
     private String lasted_update_date;
     private int read_count;
+    private int readable;
 
     public int getId() {
         return id;
@@ -73,5 +74,13 @@ public class Blog {
 
     public void setRead_count(int read_count) {
         this.read_count = read_count;
+    }
+
+    public int getReadable() {
+        return readable;
+    }
+
+    public void setReadable(int readable) {
+        this.readable = readable;
     }
 }

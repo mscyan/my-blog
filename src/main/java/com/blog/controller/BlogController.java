@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @Api(value = "Blog", description = "Blog包下内容")
@@ -30,6 +31,18 @@ public class BlogController {
     @RequestMapping(value = "commitBlog", method = {RequestMethod.GET, RequestMethod.POST})
     public ResponseData commitBlog(@RequestParam(value = "Blog") Blog blog){
         blogService.insertOneBlog(blog);
+        return new ResponseData();
+    }
+
+    @RequestMapping(value = "/test")
+    @ResponseBody
+    public ResponseData testTransaction(){
+
+        Blog blog = new Blog();
+        blog.setTitle("which");
+        blog.setRead_count(20);
+        blog.setReadable(1);
+        blogService.testTransactionService(blog);
         return new ResponseData();
     }
 }
