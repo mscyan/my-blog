@@ -1,12 +1,3 @@
-function req_get_method(url, will_async, data_format, content_format){
-    var xhr = new XMLHttpRequest();
-    // var get_method = method.toUpperCase();
-    //todo get请求后台获取数据
-}
-function req_post_method(){
-    //todo post请求后台获取数据
-}
-
 function upload_file(url, method){
     var fileBtn = document.getElementById("file");
 
@@ -80,4 +71,29 @@ function upload_blog(url, method){
     }
 }
 
+function tweak(){
+    var param1 = document.getElementById("un").value;
+    var param2 = document.getElementById("pwd").value;
+    if(param1 !== undefined && param1 !== ''){
+        if(param2 !== undefined && param2 !== ''){
+            var xhr = new XMLHttpRequest();
+            var tempInfo = {
+                "username" : param1,
+                "key" : param2
+            };
+            // var form = new FormData();
+            // form.append('tempInfo', tempInfo);
+            xhr.open('POST', '/door/login', true);
+            xhr.setRequestHeader('content-type', 'application/json');
+            xhr.send(JSON.stringify(tempInfo));
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4 && xhr.status === 200){
+                    var response  = JSON.parse(xhr.responseText);
+                    var link = response.response_data;
+                    console.log(response);
+                }
+            };
+        }
+    }
+}
 

@@ -6,6 +6,8 @@ import com.utils.ResponseData;
 import org.apache.ibatis.reflection.ReflectionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository("blogService")
@@ -54,7 +56,6 @@ public class BlogServiceImpl implements BlogService {
         blog.setContent("error 前");
         blogMapper.updateBlog(blog);
         int x = blog.getId();
-
 
 
         blog.setContent("error 后");
