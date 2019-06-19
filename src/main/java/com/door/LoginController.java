@@ -30,13 +30,17 @@ public class LoginController {
             responseData.setResponse_code(200);
             responseData.setResponse_data("success");
             responseData.setRemark("");
-            response.addCookie(new Cookie("a2V5", "eW91a25vd3doYXQ="));
+            Cookie cookie = new Cookie("a2V5", "eW91a25vd3doYXQ=");
+            cookie.setMaxAge(3000);
+            cookie.setDomain("localhost");
+            cookie.setPath("/");
+            response.addCookie(cookie);
         }
         else{
-            responseData.setResponse_code(200);
-            responseData.setResponse_data("error");
-            responseData.setRemark("");
-            response.addCookie(new Cookie("a2V5", "?"));
+//            responseData.setResponse_code(200);
+//            responseData.setResponse_data("error");
+//            responseData.setRemark("");
+//            response.addCookie(new Cookie("a2V5", "?"));
         }
         return responseData;
     }

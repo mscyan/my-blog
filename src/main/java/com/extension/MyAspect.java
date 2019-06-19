@@ -40,7 +40,7 @@ public class MyAspect {
         Object j = joinPoint.proceed();
         System.out.print(joinPoint.getTarget().getClass().getName() + " ");
         System.out.print(joinPoint.getSignature().getName() + " ");
-        System.out.print("cost time :" + (System.currentTimeMillis() - start) + "s  ");
+        System.out.print("cost time :" + (System.currentTimeMillis() - start) + "ms  ");
         System.out.println(j.getClass());
         return j;
     }
