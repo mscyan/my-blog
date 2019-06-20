@@ -81,16 +81,16 @@ function tweak(){
                 "username" : param1,
                 "key" : param2
             };
-            // var form = new FormData();
-            // form.append('tempInfo', tempInfo);
             xhr.open('POST', '/door/login', true);
             xhr.setRequestHeader('content-type', 'application/json');
             xhr.send(JSON.stringify(tempInfo));
             xhr.onreadystatechange = function(){
                 if(xhr.readyState === 4 && xhr.status === 200){
                     var response  = JSON.parse(xhr.responseText);
-                    var link = response.response_data;
-                    console.log(response);
+                    console.log(response.response_data);
+                    if(response.response_data === 'success'){
+                        window.location.href = "/";
+                    }
                 }
             };
         }

@@ -16,7 +16,6 @@ public class MyFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         System.out.println(new Date().toString() + " - " + ((HttpServletRequest) request).getServletPath() + " " + request.getRemoteAddr());
-//        System.out.println(new Date().toString() + " " + request.getRemoteHost());
 
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         Cookie[] cookies = httpServletRequest.getCookies();
