@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface BlogService {
 
-    ResponseData insertOneBlog(Blog blog);
+    Integer insertOneBlog(Blog blog);
 
-    ResponseData getBlogs(int pageSize, int pageNumber);
+    List<Blog> getBlogs(int pageSize, int pageNumber);
 
-    ResponseData getBlogById(int id);
+    Blog getBlogById(int id);
 
     ResponseData updateBlog(Blog blog);
 

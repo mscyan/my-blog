@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Title</title>
-	<link rel="stylesheet" href="/static/uikit/uikit-2.25.0/css/uikit.min.css" />
+	<link rel="stylesheet" href="../static/uikit/uikit-2.25.0/css/uikit.min.css" />
 	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <style>
         .word-black{
@@ -20,7 +20,45 @@
         li{
             list-style-type: none;
         }
+
+		.blog-uri{
+			text-decoration: none;
+			color: #000;
+		}
     </style>
+    <script>
+        //向后台获取blog列表
+        function pullBlogsFromBack(){
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/blog/getBlog", true);
+            xhr.setRequestHeader("content-type", "application/json");
+            xhr.send();
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4 && xhr.status === 200){
+                    var response = JSON.parse(xhr.responseText);
+                    var list = JSON.parse(response['response_data']);
+                    //初始化页面结构
+                    for(var i=0;i<list.length;i++){
+                    	// console.log(list[i]);
+                        var title = list[i].title;
+                        var content_abstract = list[i].content_abstract;
+                        var id = list[i].id;
+                        var li = document.createElement("li");
+                        li.innerHTML = '<article class="uk-article">' +
+								'<div class="blog-title uk-text-large uk-text-bold"><a class="blog-uri" href="/blog/getBlogById/' + id + '" target="_self">' + title + '</a></div>' +
+								'<div class="content-abstract uk-text-muted">' + content_abstract + '</div>' +
+								'</article>' +
+								'<hr/>';
+						document.getElementById('blog-list').appendChild(li);
+                    }
+
+                    console.log("page init success");
+                }
+            }
+        }
+
+        pullBlogsFromBack();
+    </script>
 </head>
 <body>
 	<div class="uk-block uk-block-secondary uk-contrast">
@@ -43,23 +81,7 @@
 				</div>
 				<div class="uk-width-3-4 uk-container" style="background-color:#fff">
                     <div >
-                        <ul>
-                            <li>
-                                <article class="uk-article">
-                                    <h1 class="uk-article-title">Title 标题</h1>
-                                    <p class="uk-article-meta">from yan 2019</p>
-                                    <p class="uk-article-lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                    <hr class="uk-article-divider">
-                                </article>
-                            </li>
-                            <li>
-                                <article class="uk-article">
-                                    <h2 class="uk-article-title">Title Title</h2>
-                                    <p class="uk-article-meta">from yan 2019</p>
-                                    <p class="uk-article-lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                    <hr class="uk-article-divider">
-                                </article>
-                            </li>
+                        <ul id="blog-list">
                         </ul>
                     </div>
 				</div>

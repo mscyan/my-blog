@@ -35,7 +35,10 @@ public class MyFilter implements Filter {
         }
         if(!hasPrivilege){
             if(((HttpServletRequest) request).getServletPath().startsWith("/door") ||
-            ((HttpServletRequest) request).getServletPath().startsWith("/static")){
+            ((HttpServletRequest) request).getServletPath().startsWith("/static") ||
+            ((HttpServletRequest) request).getServletPath().startsWith("/pic/getpic") ||
+            ((HttpServletRequest) request).getServletPath().equals("/") ||
+            ((HttpServletRequest) request).getServletPath().startsWith("/blog/get")){
                 filterChain.doFilter(request, response);
             }
             else{

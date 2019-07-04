@@ -7,7 +7,7 @@
     <!--todo-->
 
     <!--测试事务回滚特性的语句-->
-    <insert id="insertToBlog" parameterType="com.blog.bean.Blog">
+    <insert id="insertBlog" parameterType="com.blog.bean.Blog">
         insert into blog
         (theme_id, title, content_abstract, content, commit_date,
         lasted_update_date, read_count, readable)
@@ -15,6 +15,14 @@
         (#{blog.theme_id}, #{blog.title}, #{blog.content_abstract}, #{blog.content},
         #{blog.commit_date}, #{blog.lasted_update_date}, #{blog.read_count}, #{blog.readable})
     </insert>
+
+    <select id="getBlogs" resultType="com.blog.bean.Blog">
+        select * from blog
+    </select>
+
+    <select id="getBlogById" resultType="com.blog.bean.Blog" parameterType="int">
+        select * from blog where id = #{id}
+    </select>
 
     <update id="updateBlog" parameterType="com.blog.bean.Blog">
         update blog set

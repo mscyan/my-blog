@@ -16,7 +16,9 @@ public interface BlogMapper {
 
     void deleteBlogById(@Param("id") int id);
 
-    Blog selectBlogById(@Param("id") int id);
+    Blog getBlogById(@Param("id") int id);
+
+    List<Blog> getBlogs();
 
     List<Blog> selectBlogInRange(@Param("pageSize") int pageSize,
                                  @Param("pageNumber") int pageNumber);

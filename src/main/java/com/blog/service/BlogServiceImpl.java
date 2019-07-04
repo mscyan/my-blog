@@ -2,6 +2,7 @@ package com.blog.service;
 
 import com.blog.bean.Blog;
 import com.blog.mapper.BlogMapper;
+import com.utils.Base64Util;
 import com.utils.ResponseData;
 import org.apache.ibatis.reflection.ReflectionException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,9 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.net.URLDecoder;
+import java.util.List;
+
 @Repository("blogService")
 public class BlogServiceImpl implements BlogService {
 
@@ -17,18 +21,28 @@ public class BlogServiceImpl implements BlogService {
     private BlogMapper blogMapper;
 
     @Override
-    public ResponseData insertOneBlog(Blog blog) {
-        return null;
+    public Integer insertOneBlog(Blog blog) {
+        return blogMapper.insertBlog(blog);
     }
 
     @Override
-    public ResponseData getBlogs(int pageSize, int pageNumber) {
-        return null;
+    public List<Blog> getBlogs(int pageSize, int pageNumber) {
+        List<Blog> blogs = blogMapper.getBlogs();
+        for(Blog item : blogs){
+            item.setTitle(URLDecoder.decode(Base64Util.decode(item.getTitle())));
+            item.setContent(URLDecoder.decode(Base64Util.decode(item.getContent())));
+            item.setContent_abstract(URLDecoder.decode(Base64Util.decode(item.getContent_abstract())));
+        }
+        return blogs;
     }
 
     @Override
-    public ResponseData getBlogById(int id) {
-        return null;
+    public Blog getBlogById(int id) {
+        Blog blog = blogMapper.getBlogById(id);
+        blog.setTitle(URLDecoder.decode(Base64Util.decode(blog.getTitle())));
+        blog.setContent(URLDecoder.decode(Base64Util.decode(blog.getContent())));
+        blog.setContent_abstract(URLDecoder.decode(Base64Util.decode(blog.getContent_abstract())));
+        return blog;
     }
 
     @Override

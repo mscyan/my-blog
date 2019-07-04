@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>博客管理</title>
+    <link rel="stylesheet" href="../static/uikit/uikit-2.25.0/css/uikit.min.css" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <script type="text/javascript" src="/static/js/req.js" ></script>
+</head>
+<body>
+
+    <input type="file" name="blog_html_file" id="blog_html_file" />
+    <input type="text" id="title" />
+    <textarea rows="3" draggable="false" id="content-abstract" ></textarea>
+    <button type="button" onclick="upload_blog('/blog/commitBlog', 'POST')">点击上传</button>
+</body>
+</html>
