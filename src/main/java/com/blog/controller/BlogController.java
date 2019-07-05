@@ -41,11 +41,11 @@ public class BlogController {
 
     @ResponseBody
     @RequestMapping(value = "/getBlogById/{id}", method = RequestMethod.GET)
-    public ResponseData getBlogById(@PathVariable int id){
+    public String getBlogById(@PathVariable int id){
 
         ResponseData responseData = new ResponseData();
         responseData.setResponse_data(JSONArray.toJSONString(blogService.getBlogById(id)));
-        return responseData;
+        return blogService.getBlogById(id).getContent();
     }
 
     @ApiOperation(value = "提交blog")

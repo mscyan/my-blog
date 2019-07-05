@@ -26,7 +26,7 @@
 
     <update id="updateBlog" parameterType="com.blog.bean.Blog">
         update blog set
-        theme_id = #{blog.theme_1id},
+        theme_id = #{blog.theme_id},
         title = #{blog.title},
         content_abstract = #{blog.content_abstract},
         content = #{blog.content},
