@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.blog.mapper.ThemeMapper">
+
+    <!--主题 mapping -->
+    <insert id="addTheme" parameterType="com.blog.bean.Theme">
+        insert into theme (theme_name) values (#{theme.theme_name})
+    </insert>
+
+    <delete id="deleteThemeById" parameterType="int">
+        delete from theme where id = #{id}
+    </delete>
+
+    <update id="updateTheme" parameterType="com.blog.bean.Theme">
+        update theme set theme_name = #{theme.theme_name} where id = #{theme.id}
+    </update>
+
+    <select id="getThemes" resultType="com.blog.bean.Theme">
+        select * from theme
+    </select>
+
+    <select id="getThemeById" parameterType="int" resultType="com.blog.bean.Theme">
+        select * from theme where id = #{id}
+    </select>
+
+    <!--主题和博客连接表-->
+    <!--todo blog_theme-->
+    <!--获取一篇博客所有的theme标签-->
+    <select id="getThemesByBlogId" parameterType="int" resultType="com.blog.bean.Theme">
+        select * from theme where id in (select theme_id from blog_theme where blog_id = #{blogId})
+    </select>
+
+    <!--获取某theme下的所有博客-->
+    <select id="getBlogsByThemeId" parameterType="int" resultType="com.blog.bean.Blog">
+        select id, title, 'TlVMTA==' as content, content_abstract, commit_date, lasted_update_date, read_count, readable
+        from blog where id in (select blog_id from blog_theme where theme_id = #{themeId})
+    </select>
+
+    <!--为博客添加theme标签-->
+    <insert id="addThemeAndBlog" parameterType="int">
+        insert into blog_theme values (#{blog_id}, #{theme_id})
+    </insert>
+
+    <!--删除博客对应的某条标签-->
+    <delete id="deleteThemeById4BlogId" parameterType="int">
+        delete from blog_theme where blog_id = #{blog_id} and theme_id = #{theme_id}
+    </delete>
+
+</mapper>

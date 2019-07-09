@@ -59,21 +59,4 @@ public class BlogServiceImpl implements BlogService {
     public ResponseData deleteBlogById_real(int id) {
         return null;
     }
-
-    @Override
-    @Transactional
-    public ResponseData testTransactionService(Blog blog) {
-
-        blogMapper.insertToBlog(blog);
-
-        blog.setId(2);
-        blog.setContent("error 前");
-        blogMapper.updateBlog(blog);
-        int x = blog.getId();
-
-
-        blog.setContent("error 后");
-        blogMapper.updateBlog(blog);
-        return new ResponseData();
-    }
 }
