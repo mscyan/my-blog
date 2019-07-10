@@ -2,6 +2,7 @@ package com;
 
 import com.utils.Base64Util;
 import com.utils.Configurations;
+import com.utils.ValueTransform;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,15 +38,8 @@ public class HomeController {
 
     public static void main(String[] args){
 
-        Integer x = null;
-        try {
-            x = Integer.parseInt("xcx");
-        } catch (Exception e){
-
-        }
-        System.out.println(x);
-//        System.out.println(Base64Util.decode("QzpcXFVzZXJzXFxBa2F6YW1cXERlc2t0b3BcUVHlm77niYcyMDE5MDUyMjE4MjgwOS5naWY="));
-////
-//        System.out.println("C:\\\\Users\\\\Akazam\\\\Desktop\\\\simages".length());
+        String  value = "OS_0002_操作系统中进程的概念";
+        System.out.println(ValueTransform.encode(value));
+        System.out.println(ValueTransform.decode("JUU2JTkzJThEJUU0JUJEJTlDJUU3JUIzJUJCJUU3JUJCJTlGJUU0JUI4JUFEJUU4JUJGJTlCJUU3JUE4JThCJUU3JTlBJTg0JUU2JUE2JTgyJUU1JUJGJUI1"));
     }
 }
