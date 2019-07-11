@@ -3,6 +3,7 @@ package com.extension;
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 
@@ -21,6 +22,9 @@ public class MyFilter implements Filter {
         Cookie[] cookies = httpServletRequest.getCookies();
         if(cookies == null){
             cookies = new Cookie[0];
+        }
+        if(((HttpServletRequest) request).getServletPath().equals("/favicon.ico")){
+            ((HttpServletResponse) response).sendRedirect("/static/favicon.ico");
         }
         boolean hasPrivilege = false;
         for(Cookie cook : cookies){
