@@ -42,10 +42,15 @@ public class BlogController {
     @ResponseBody
     @RequestMapping(value = "/getBlogById/{id}", method = RequestMethod.GET)
     public String getBlogById(@PathVariable int id){
-
-        ResponseData responseData = new ResponseData();
-        responseData.setResponse_data(JSONArray.toJSONString(blogService.getBlogById(id)));
-        return blogService.getBlogById(id).getContent();
+        String content = "no such blog </br> <a href=\"/\">返回主页</a>";
+        try {
+            content = blogService.getBlogById(id).getContent();
+        } catch (Exception ignored){
+            System.out.println("invalid blogId : " + id);
+        }
+        finally {
+            return content;
+        }
     }
 
     @ApiOperation(value = "提交blog")

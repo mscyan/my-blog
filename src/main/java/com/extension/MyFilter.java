@@ -1,5 +1,7 @@
 package com.extension;
 
+import com.utils.DateUtil;
+
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +18,7 @@ public class MyFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-        System.out.println(new Date().toString() + " - " + ((HttpServletRequest) request).getServletPath() + " " + request.getRemoteAddr());
-
+        System.out.println(request.getAttribute("X-real-ip") + "  " + DateUtil.getCurrentTime() + " : 登入系统" + " ][ " + ((HttpServletRequest) request).getServletPath());
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         Cookie[] cookies = httpServletRequest.getCookies();
         if(cookies == null){
@@ -28,7 +29,6 @@ public class MyFilter implements Filter {
         }
         boolean hasPrivilege = false;
         for(Cookie cook : cookies){
-            System.out.println(cook.getName() + " " + cook.getValue());
             if(cook.getName().equals("a2V5")){
                 if(cook.getValue().equals("eW91a25vd3doYXQ=")){
                     hasPrivilege = true;
@@ -46,7 +46,7 @@ public class MyFilter implements Filter {
                 filterChain.doFilter(request, response);
             }
             else{
-                System.out.println( request.getRemoteAddr() + " " + request.getRemoteHost() + "没有权限登入");
+
             }
         }
     }
