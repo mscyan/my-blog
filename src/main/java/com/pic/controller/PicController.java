@@ -29,7 +29,7 @@ public class PicController {
     @ApiOperation("根据given_uri获取图片")
     @RequestMapping(value = "/getpic/{picname}", method = RequestMethod.GET)
     public void getImage(@PathVariable("picname") String picName,
-                         HttpServletRequest request, HttpServletResponse response){
+                         HttpServletRequest request, HttpServletResponse response) throws Exception{
         Object j = picService.returnPic(request, response, picName).getResponse_data();
         if(j.getClass().equals(Picture.class)){
             Picture p = (Picture) j;

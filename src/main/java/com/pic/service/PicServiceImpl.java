@@ -36,8 +36,12 @@ public class PicServiceImpl implements PicService {
             id = Integer.parseInt(Base64Util.decode(picName));
         } catch (Exception e){
             //do nothing return the default pic NUMBER
+            id = 40;
         }
         Picture picture = pictureMapper.getPictureById(id);
+        if(picture == null){
+            picture = pictureMapper.getPictureById(40);
+        }
         if(picture != null){
             String path = Base64Util.decode(picture.getGiven_uri());
             try {
@@ -65,7 +69,7 @@ public class PicServiceImpl implements PicService {
             }
         }
         else{
-            return new ResponseData(500, null, "");
+            return new ResponseData(500, "null", "");
         }
     }
 

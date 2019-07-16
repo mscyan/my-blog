@@ -18,7 +18,7 @@ public class MyFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-        System.out.println(request.getAttribute("X-real-ip") + "  " + DateUtil.getCurrentTime() + " : 登入系统" + " ][ " + ((HttpServletRequest) request).getServletPath());
+//        System.out.println(request.getAttribute("X-real-ip") + "  " + DateUtil.getCurrentTime() + " : 登入系统" + " ][ " + ((HttpServletRequest) request).getServletPath());
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         Cookie[] cookies = httpServletRequest.getCookies();
         if(cookies == null){
