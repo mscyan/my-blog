@@ -43,6 +43,8 @@ function upload_blog(url, method){
     else{
         var title = document.getElementById('title').value;
         var abstract = document.getElementById('content-abstract').value;
+        var theme_id = document.getElementById('theme_selection').options[document.getElementById('theme_selection').selectedIndex].value;
+        console.log(theme_id);
         var fileTotalName = fileBtn.files[0].name;
         if(fileTotalName.lastIndexOf('.') === -1){
             alert("this file is not Suitable");
@@ -54,8 +56,9 @@ function upload_blog(url, method){
                 fd.append('file', fileBtn.files[0]);
                 fd.append("title", title);
                 fd.append("content_abstract", abstract);
-                console.log(title);
-                console.log(abstract);
+                fd.append("theme_id", theme_id);
+                // console.log(title);
+                // console.log(abstract);
                 var xhr = new XMLHttpRequest();
                 xhr.open(method, url, true);
                 xhr.send(fd);

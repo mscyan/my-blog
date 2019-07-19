@@ -20,6 +20,8 @@ public interface BlogMapper {
 
     List<Blog> getBlogs();
 
+    List<Blog> getAlgorithmBlogs();
+
     List<Blog> selectBlogInRange(@Param("pageSize") int pageSize,
                                  @Param("pageNumber") int pageNumber);
 

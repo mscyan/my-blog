@@ -14,8 +14,18 @@
         #{blog.commit_date}, #{blog.lasted_update_date}, #{blog.read_count}, #{blog.readable})
     </insert>
 
+    <select id="getAlgorithmBlogs" resultType="com.blog.bean.Blog">
+        select id, title, 'TlVMTA==' as content, content_abstract, commit_date, lasted_update_date, read_count, readable
+        from blog
+        where theme_id = 1
+        order by commit_date desc
+    </select>
+
     <select id="getBlogs" resultType="com.blog.bean.Blog">
-        select id, title, 'TlVMTA==' as content, content_abstract, commit_date, lasted_update_date, read_count, readable from blog order by commit_date desc
+        select id, title, 'TlVMTA==' as content, content_abstract, commit_date, lasted_update_date, read_count, readable
+        from blog
+        where theme_id != 1
+        order by commit_date desc
     </select>
 
     <select id="getBlogById" resultType="com.blog.bean.Blog" parameterType="int">

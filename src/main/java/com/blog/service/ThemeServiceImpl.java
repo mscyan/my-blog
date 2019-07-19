@@ -16,7 +16,6 @@ public class ThemeServiceImpl implements ThemeService {
 
     @Override
     public int addTheme(Theme theme) {
-        theme.setTheme_name(ValueTransform.encode(theme.getTheme_name()));
         return themeMapper.addTheme(theme);
     }
 
@@ -33,16 +32,12 @@ public class ThemeServiceImpl implements ThemeService {
     @Override
     public List<Theme> getThemes() {
         List<Theme> themes = themeMapper.getThemes();
-        for(Theme item : themes){
-            item.setTheme_name(ValueTransform.decode(item.getTheme_name()));
-        }
         return themes;
     }
 
     @Override
     public Theme getThemeById(int id) {
         Theme theme = themeMapper.getThemeById(id);
-        theme.setTheme_name(ValueTransform.decode(theme.getTheme_name()));
         return theme;
     }
 }

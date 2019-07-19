@@ -60,7 +60,7 @@ public class MyAspect {
             System.out.println("ExceptionHandler ==> " + joinPoint.getSignature().getName() + "  " + ArrayToList.printArray(joinPoint.getArgs()));
             return re;
         } catch (Exception exception) {
-//            exception.printStackTrace();
+            exception.printStackTrace();
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }

@@ -34,9 +34,13 @@
     </style>
     <script>
         //向后台获取blog列表
-        function pullBlogsFromBack(){
+        function pullBlogsFromBack(theme){
+            // console.log(theme);
+            if(theme === undefined){
+                theme = '';
+            }
             var xhr = new XMLHttpRequest();
-            xhr.open("GET", "/blog/getBlog", true);
+            xhr.open("GET", "/blog/getBlog/"+theme, true);
             xhr.setRequestHeader("content-type", "application/json");
             xhr.send();
             xhr.onreadystatechange = function(){
@@ -44,6 +48,7 @@
                     var response = JSON.parse(xhr.responseText);
                     var list = JSON.parse(response['response_data']);
                     //初始化页面结构
+                    clearBlogElements();
                     for(var i=0;i<list.length;i++){
                     	// console.log(list[i]);
                         var title = list[i].title;
@@ -57,13 +62,29 @@
 								'<hr/>';
 						document.getElementById('blog-list').appendChild(li);
                     }
-
-                    console.log("page init success");
+                    if(list === undefined || list.length === 0){
+                        document.getElementById('blog-list').innerHTML = '空空的';
+                    }
                 }
             }
         }
-
         pullBlogsFromBack();
+
+        function loadBlogsByTheme(theme){
+            if(theme === 'blogs'){
+                pullBlogsFromBack('blogs');
+            }
+            else if(theme === 'algorithm'){
+                pullBlogsFromBack('algorithm');
+            }
+        }
+
+        function clearBlogElements(){
+            var blogX = document.getElementById('blog-list');
+            while(blogX.hasChildNodes()){
+                blogX.removeChild(blogX.firstChild);
+            }
+        }
     </script>
 </head>
 <body>
@@ -82,7 +103,8 @@
 				<div class="left-div uk-width-1-4 uk-panel">
                     <div class="shadow-div no-ver-padding bg-green uk-panel-box uk-panel-box">
                         <ul class=" uk-nav uk-nav-dropdown uk-nav-parent-icon">
-                            <li class="nav-li uk-text-large"><a href="#">博客</a></li>
+                            <li class="nav-li uk-text-large" onclick="loadBlogsByTheme('blogs')"><a>博客</a></li>
+                            <li class="nav-li uk-text-large" onclick="loadBlogsByTheme('algorithm')"><a>算法</a></li>
                             <li class="nav-li uk-text-large"><a href="#">分类</a></li>
                         </ul>
                     </div>

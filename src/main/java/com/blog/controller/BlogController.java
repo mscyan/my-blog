@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.blog.bean.Blog;
 import com.blog.service.BlogService;
+import com.blog.service.ThemeService;
 import com.utils.Base64Util;
 import com.utils.DateUtil;
 import com.utils.FileReader;
@@ -27,14 +28,20 @@ public class BlogController {
     @Autowired
     private BlogService blogService;
 
+    @Autowired
+    private ThemeService themeService;
+
     @ApiOperation(value = "获取Blog")
     @ResponseBody
-    @RequestMapping(value = "/getBlog", method = RequestMethod.GET)
-    public ResponseData getBlogList(){
+    @RequestMapping(value = {"/getBlog/{theme}", "/getBlog"}, method = RequestMethod.GET)
+    public ResponseData getBlogList(@PathVariable(required = false) String theme){
 
+        if(theme == null || theme.equals("")){
+            theme = "blogs";
+        }
         ResponseData responseData = new ResponseData();
         responseData.setResponse_code(200);
-        responseData.setResponse_data(JSONArray.toJSONString(blogService.getBlogs(0, 0)));
+        responseData.setResponse_data(JSONArray.toJSONString(blogService.getBlogs(0, 0, theme)));
         responseData.setRemark("");
         return responseData;
     }
@@ -58,6 +65,7 @@ public class BlogController {
     @RequestMapping(value = "/commitBlog", method = {RequestMethod.GET, RequestMethod.POST})
     public ResponseData commitBlog(@RequestParam("title") String title,
                                    @RequestParam("content_abstract") String content_abstract,
+                                   @RequestParam("theme_id") int theme_id,
                                    MultipartFile file) throws IOException {
 
         String currentTime = DateUtil.getCurrentTime();
@@ -70,10 +78,19 @@ public class BlogController {
         blog.setLasted_update_date(currentTime);
         blog.setRead_count(0);
         blog.setReadable(1);
+        blog.setTheme_id(theme_id);
 
         Integer result = blogService.insertOneBlog(blog);
         return new ResponseData(200, result, "add blog success");
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/getThemes", method = RequestMethod.GET)
+    public ResponseData getThemes(){
+        String themes = JSONArray.toJSONString(themeService.getThemes());
+        return new ResponseData(200, themes, "success");
+    }
+
 
     @RequestMapping("/back")
     public String blogManager(){

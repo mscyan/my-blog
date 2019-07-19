@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository("blogService")
@@ -26,8 +27,14 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public List<Blog> getBlogs(int pageSize, int pageNumber) {
-        List<Blog> blogs = blogMapper.getBlogs();
+    public List<Blog> getBlogs(int pageSize, int pageNumber, String themeId) {
+        List<Blog> blogs = new ArrayList<>();
+        if(themeId.equals("blogs")){
+            blogs = blogMapper.getBlogs();
+        }
+        else if(themeId.equals("algorithm")){
+            blogs = blogMapper.getAlgorithmBlogs();
+        }
         for(Blog item : blogs){
             item.setTitle(URLDecoder.decode(Base64Util.decode(item.getTitle())));
             item.setContent(URLDecoder.decode(Base64Util.decode(item.getContent())));

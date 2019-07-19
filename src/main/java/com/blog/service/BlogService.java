@@ -9,7 +9,7 @@ public interface BlogService {
 
     Integer insertOneBlog(Blog blog);
 
-    List<Blog> getBlogs(int pageSize, int pageNumber);
+    List<Blog> getBlogs(int pageSize, int pageNumber, String themeId);
 
     Blog getBlogById(int id);
 
