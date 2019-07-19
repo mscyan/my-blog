@@ -73,9 +73,13 @@
         function loadBlogsByTheme(theme){
             if(theme === 'blogs'){
                 pullBlogsFromBack('blogs');
+                document.getElementById('blogs-nav').style.backgroundColor = '#39f';
+                document.getElementById('algorithm-nav').style.backgroundColor = '#f5f5f5';
             }
             else if(theme === 'algorithm'){
                 pullBlogsFromBack('algorithm');
+                document.getElementById('algorithm-nav').style.backgroundColor = '#39f';
+                document.getElementById('blogs-nav').style.backgroundColor = '#f5f5f5';
             }
         }
 
@@ -103,8 +107,8 @@
 				<div class="left-div uk-width-1-4 uk-panel">
                     <div class="shadow-div no-ver-padding bg-green uk-panel-box uk-panel-box">
                         <ul class=" uk-nav uk-nav-dropdown uk-nav-parent-icon">
-                            <li class="nav-li uk-text-large" onclick="loadBlogsByTheme('blogs')"><a>博客</a></li>
-                            <li class="nav-li uk-text-large" onclick="loadBlogsByTheme('algorithm')"><a>算法</a></li>
+                            <li class="nav-li uk-text-large" id="blogs-nav" onclick="loadBlogsByTheme('blogs')"><a>博客</a></li>
+                            <li class="nav-li uk-text-large" id="algorithm-nav" onclick="loadBlogsByTheme('algorithm')"><a>算法</a></li>
                             <li class="nav-li uk-text-large"><a href="#">分类</a></li>
                         </ul>
                     </div>
