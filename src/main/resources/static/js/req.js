@@ -103,3 +103,15 @@ function tweak(){
     }
 }
 
+//提交博客
+function commit_blog(markdownData, htmlPrevData){
+    var title = document.getElementById("title").value;
+    var theme_id = document.getElementById('theme_selection').options[document.getElementById('theme_selection').selectedIndex].value;
+    var abstract = document.getElementById("content-abstract").value;
+    // var markdownData =
+    // var htmlPrevData = "";
+    var id = -1;
+    console.log(markdownData);
+    console.log(htmlPrevData);
+
+}

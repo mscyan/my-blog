@@ -91,6 +91,10 @@ public class BlogController {
         return new ResponseData(200, themes, "success");
     }
 
+    @RequestMapping(value = "blog_edit", method = RequestMethod.GET)
+    public String blog_edit(){
+        return "/edit/blog_edit.html";
+    }
 
     @RequestMapping("/back")
     public String blogManager(){

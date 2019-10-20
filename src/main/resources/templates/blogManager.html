@@ -7,29 +7,29 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <script type="text/javascript" src="/static/js/req.js" ></script>
     <script>
-        function pullThemesFromBack(){
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", "/blog/getThemes", true);
-            xhr.setRequestHeader("content-type", "application/json");
-            xhr.send();
-            xhr.onreadystatechange = function(){
-                if(xhr.readyState === 4 && xhr.status === 200){
-                    var response = JSON.parse(xhr.responseText);
-                    var list = JSON.parse(response['response_data']);
-                    //初始化页面结构
-                    for(var i=0;i<list.length;i++){
-                        var themeId = list[i].id;
-                        var theme_name = list[i].theme_name;
-                        var option = document.createElement("option");
-                        option.setAttribute("value", themeId);
-                        option.innerText = theme_name;
-                        document.getElementById("theme_selection").appendChild(option);
-                    }
+    function pullThemesFromBack(){
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "/blog/getThemes", true);
+        xhr.setRequestHeader("content-type", "application/json");
+        xhr.send();
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState === 4 && xhr.status === 200){
+                var response = JSON.parse(xhr.responseText);
+                var list = JSON.parse(response['response_data']);
+                //初始化页面结构
+                for(var i=0;i<list.length;i++){
+                    var themeId = list[i].id;
+                    var theme_name = list[i].theme_name;
+                    var option = document.createElement("option");
+                    option.setAttribute("value", themeId);
+                    option.innerText = theme_name;
+                    document.getElementById("theme_selection").appendChild(option);
                 }
             }
         }
-        pullThemesFromBack();
-    </script>
+    }
+    pullThemesFromBack();
+</script>
     <style>
         .uk-form{
             width: auto;
