@@ -1,7 +1,6 @@
 package com.blog.controller;
 
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.blog.bean.Blog;
 import com.blog.service.BlogService;
 import com.blog.service.ThemeService;
@@ -12,7 +11,6 @@ import com.utils.ResponseData;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -51,7 +49,7 @@ public class BlogController {
     public String getBlogById(@PathVariable int id){
         String content = "no such blog </br> <a href=\"/\">返回主页</a>";
         try {
-            content = blogService.getBlogById(id).getContent();
+            content = blogService.getBlogById(id).getHtml_content();
         } catch (Exception ignored){
             System.out.println("invalid blogId : " + id);
         }
@@ -60,29 +58,29 @@ public class BlogController {
         }
     }
 
-    @ApiOperation(value = "提交blog")
-    @ResponseBody
-    @RequestMapping(value = "/commitBlog", method = {RequestMethod.GET, RequestMethod.POST})
-    public ResponseData commitBlog(@RequestParam("title") String title,
-                                   @RequestParam("content_abstract") String content_abstract,
-                                   @RequestParam("theme_id") int theme_id,
-                                   MultipartFile file) throws IOException {
-
-        String currentTime = DateUtil.getCurrentTime();
-        Blog blog = new Blog();
-        blog.setTitle(Base64Util.encode(URLEncoder.encode(title)));
-        blog.setContent_abstract(Base64Util.encode(URLEncoder.encode(content_abstract)));
-        blog.setCommit_date(currentTime);
-        blog.setContent(Base64Util.encode(URLEncoder.encode(FileReader.getTextFromBlogFile(file))));
-        blog.setTheme_id(0);
-        blog.setLasted_update_date(currentTime);
-        blog.setRead_count(0);
-        blog.setReadable(1);
-        blog.setTheme_id(theme_id);
-
-        Integer result = blogService.insertOneBlog(blog);
-        return new ResponseData(200, result, "add blog success");
-    }
+//    @ApiOperation(value = "提交blog")
+//    @ResponseBody
+//    @RequestMapping(value = "/commitBlog", method = {RequestMethod.GET, RequestMethod.POST})
+//    public ResponseData commitBlog(@RequestParam("title") String title,
+//                                   @RequestParam("content_abstract") String content_abstract,
+//                                   @RequestParam("theme_id") int theme_id,
+//                                   MultipartFile file) throws IOException {
+//
+//        String currentTime = DateUtil.getCurrentTime();
+//        Blog blog = new Blog();
+//        blog.setTitle(Base64Util.encode(URLEncoder.encode(title)));
+//        blog.setContent_abstract(Base64Util.encode(URLEncoder.encode(content_abstract)));
+//        blog.setCommit_date(currentTime);
+//        blog.setHtml_content(Base64Util.encode(URLEncoder.encode(FileReader.getTextFromBlogFile(file))));
+////        blog.setTheme_id(0);
+//        blog.setLasted_update_date(currentTime);
+//        blog.setRead_count(0);
+//        blog.setReadable(1);
+//        blog.setTheme_id(theme_id);
+//
+//        Integer result = blogService.insertOneBlog(blog);
+//        return new ResponseData(200, result, "add blog success");
+//    }
 
     @ResponseBody
     @RequestMapping(value = "/getThemes", method = RequestMethod.GET)
@@ -99,5 +97,33 @@ public class BlogController {
     @RequestMapping("/back")
     public String blogManager(){
         return "/blogManager.html";
+    }
+
+    @RequestMapping(value = "check_title", method = RequestMethod.POST)
+    public String checkBlogTitle(){
+        return "";
+    }
+
+    @RequestMapping(value = "/commit_blog", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData commitBlog(@RequestParam("title") String title,
+                                   @RequestParam("markdown") String markdown,
+                                   @RequestParam("html") String html,
+                                   @RequestParam("theme_id") Integer theme_id,
+                                   @RequestParam("content_abstract") String content_abstract){
+        String currentTime = DateUtil.getCurrentTime();
+        Blog blog = new Blog();
+        blog.setTitle(title);
+        blog.setContent_abstract(content_abstract);
+        blog.setMarkdown_content(markdown);
+        blog.setHtml_content(html);
+        blog.setTheme_id(theme_id);
+        blog.setCommit_date(currentTime);
+        blog.setLasted_update_date(currentTime);
+        blog.setRead_count(0);
+        blog.setReadable(1);
+
+        Integer result = blogService.insertOneBlog(blog);
+        return new ResponseData(200, result, "add blog success");
     }
 }

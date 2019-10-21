@@ -104,14 +104,28 @@ function tweak(){
 }
 
 //提交博客
-function commit_blog(markdownData, htmlPrevData){
-    var title = document.getElementById("title").value;
+function commit_blog(title, markdownData, htmlPrevData){
+    // var title = document.getElementById("title").value;
     var theme_id = document.getElementById('theme_selection').options[document.getElementById('theme_selection').selectedIndex].value;
     var abstract = document.getElementById("content-abstract").value;
     // var markdownData =
     // var htmlPrevData = "";
     var id = -1;
-    console.log(markdownData);
-    console.log(htmlPrevData);
 
+    var form = new FormData();
+    form.append('title', title);
+    form.append('markdown', markdownData);
+    form.append('html', htmlPrevData);
+    form.append('theme_id', theme_id);
+    form.append('content_abstract', abstract);
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/blog/commit_blog', true);
+    xhr.send(form);
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState === 4 && xhr.status === 200){
+            var response  = JSON.parse(xhr.responseText);
+            var message = response.response_data;
+            alert(message);
+        }
+    }
 }

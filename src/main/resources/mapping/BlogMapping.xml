@@ -7,24 +7,25 @@
     <!--测试事务回滚特性的语句-->
     <insert id="insertBlog" parameterType="com.blog.bean.Blog">
         insert into blog
-        (theme_id, title, content_abstract, content, commit_date,
+        (theme_id, title, content_abstract, markdown_content, html_content, commit_date,
         lasted_update_date, read_count, readable)
         values
-        (#{blog.theme_id}, #{blog.title}, #{blog.content_abstract}, #{blog.content},
+        (#{blog.theme_id}, #{blog.title}, #{blog.content_abstract}, #{blog.markdown_content},
+        #{blog.html_content},
         #{blog.commit_date}, #{blog.lasted_update_date}, #{blog.read_count}, #{blog.readable})
     </insert>
 
     <select id="getAlgorithmBlogs" resultType="com.blog.bean.Blog">
-        select id, title, 'TlVMTA==' as content, content_abstract, commit_date, lasted_update_date, read_count, readable
+        select id, title, 'NULL' as content, content_abstract, commit_date, lasted_update_date, read_count, readable
         from blog
-        where theme_id = 1
+        where theme_id = 1 and readable = 1
         order by commit_date desc
     </select>
 
     <select id="getBlogs" resultType="com.blog.bean.Blog">
-        select id, title, 'TlVMTA==' as content, content_abstract, commit_date, lasted_update_date, read_count, readable
+        select id, title, 'NULL' as content, content_abstract, commit_date, lasted_update_date, read_count, readable
         from blog
-        where theme_id != 1
+        where theme_id != 1 and readable = 1
         order by commit_date desc
     </select>
 
@@ -32,17 +33,17 @@
         select * from blog where id = #{id}
     </select>
 
-    <update id="updateBlog" parameterType="com.blog.bean.Blog">
-        update blog set
-        theme_id = #{blog.theme_id},
-        title = #{blog.title},
-        content_abstract = #{blog.content_abstract},
-        content = #{blog.content},
-        commit_date = #{blog.commit_date},
-        lasted_update_date = #{blog.lasted_update_date},
-        read_count = #{blog.read_count},
-        readable = #{blog.readable}
-        where id = #{blog.id}
-    </update>
+<!--    <update id="updateBlog" parameterType="com.blog.bean.Blog">-->
+<!--        update blog set-->
+<!--        theme_id = #{blog.theme_id},-->
+<!--        title = #{blog.title},-->
+<!--        content_abstract = #{blog.content_abstract},-->
+<!--        content = #{blog.content},-->
+<!--        commit_date = #{blog.commit_date},-->
+<!--        lasted_update_date = #{blog.lasted_update_date},-->
+<!--        read_count = #{blog.read_count},-->
+<!--        readable = #{blog.readable}-->
+<!--        where id = #{blog.id}-->
+<!--    </update>-->
 
 </mapper>
