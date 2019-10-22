@@ -31,20 +31,20 @@ public class BlogServiceImpl implements BlogService {
         else if(themeId.equals("algorithm")){
             blogs = blogMapper.getAlgorithmBlogs();
         }
-        for(Blog item : blogs){
-            item.setTitle(URLDecoder.decode(Base64Util.decode(item.getTitle())));
-            item.setHtml_content(URLDecoder.decode(Base64Util.decode(item.getHtml_content())));
-            item.setContent_abstract(URLDecoder.decode(Base64Util.decode(item.getContent_abstract())));
-        }
+//        for(Blog item : blogs){
+//            item.setTitle(URLDecoder.decode(Base64Util.decode(item.getTitle())));
+//            item.setHtml_content(URLDecoder.decode(Base64Util.decode(item.getHtml_content())));
+//            item.setContent_abstract(URLDecoder.decode(Base64Util.decode(item.getContent_abstract())));
+//        }
         return blogs;
     }
 
     @Override
     public Blog getBlogById(int id) {
         Blog blog = blogMapper.getBlogById(id);
-        blog.setTitle(URLDecoder.decode(Base64Util.decode(blog.getTitle())));
-        blog.setHtml_content(URLDecoder.decode(Base64Util.decode(blog.getHtml_content())));
-        blog.setContent_abstract(URLDecoder.decode(Base64Util.decode(blog.getContent_abstract())));
+//        blog.setTitle(URLDecoder.decode(Base64Util.decode(blog.getTitle())));
+//        blog.setHtml_content(URLDecoder.decode(Base64Util.decode(blog.getHtml_content())));
+//        blog.setContent_abstract(URLDecoder.decode(Base64Util.decode(blog.getContent_abstract())));
         return blog;
     }
 

@@ -104,13 +104,12 @@ function tweak(){
 }
 
 //提交博客
-function commit_blog(title, markdownData, htmlPrevData){
-    // var title = document.getElementById("title").value;
+function commit_blog(markdownData, htmlPrevData){
+    var title = document.getElementById('title').value;
     var theme_id = document.getElementById('theme_selection').options[document.getElementById('theme_selection').selectedIndex].value;
     var abstract = document.getElementById("content-abstract").value;
-    // var markdownData =
-    // var htmlPrevData = "";
     var id = -1;
+    var readable = 1;
 
     var form = new FormData();
     form.append('title', title);
@@ -118,6 +117,7 @@ function commit_blog(title, markdownData, htmlPrevData){
     form.append('html', htmlPrevData);
     form.append('theme_id', theme_id);
     form.append('content_abstract', abstract);
+    form.append('readable', readable);
     var xhr = new XMLHttpRequest();
     xhr.open('POST', '/blog/commit_blog', true);
     xhr.send(form);

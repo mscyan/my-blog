@@ -23,7 +23,7 @@
     </select>
 
     <select id="getBlogs" resultType="com.blog.bean.Blog">
-        select id, title, 'NULL' as content, content_abstract, commit_date, lasted_update_date, read_count, readable
+        select id, title, 'NULL' as html_content, 'NULL' as markdown_content, content_abstract, commit_date, lasted_update_date, read_count, readable
         from blog
         where theme_id != 1 and readable = 1
         order by commit_date desc

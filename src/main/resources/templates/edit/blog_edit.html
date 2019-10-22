@@ -60,8 +60,6 @@
                     <label class="uk-text-primary uk-form-label"  for="content-abstract">操作：</label>
                     <button type="button" class="uk-button uk-button-success" onclick="_commit_blog()">保存</button>
                     <button type="button" class="uk-button uk-button-primary">可见</button>
-                    <button type="button" class="uk-button" onclick="printMarkdown()">输出Markdown</button>
-                    <button type="button" class="uk-button" onclick="printHtml()">输出Html</button>
                 </div>
             </div>
         </div>
@@ -125,6 +123,8 @@
 
     function _commit_blog(){
         checkValid();
+        console.log(getMarkdownData());
+        console.log(getHtmlPreviewData());
         commit_blog(getMarkdownData(), getHtmlPreviewData());
     }
 
@@ -134,7 +134,7 @@
 
     function checkValid(){
         var title = document.getElementById("title").value;
-        var theme_id = document.getElementById('theme_selection').options[document.getElementById('theme_selection').selectedIndex].value;
+//        var theme_id = document.getElementById('theme_selection').options[document.getElementById('theme_selection').selectedIndex].value;
         var abstract = document.getElementById("content-abstract").value;
         if(title === ''){
             alert("please input the title");
@@ -143,9 +143,6 @@
         if(abstract === ''){
             alert("please input the abstract");
             return;
-        }
-        else{
-            // commit_blog(title, getMarkdownData(), getHtmlPreviewData());
         }
     }
 
