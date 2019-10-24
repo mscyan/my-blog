@@ -44,21 +44,9 @@ public class BlogController {
         return responseData;
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/getBlogById/{id}", method = RequestMethod.GET)
-    public String getBlogById(@PathVariable int id){
-        String content = "no such blog </br> <a href=\"/\">返回主页</a>";
-        try {
-            content = blogService.getBlogById(id).getHtml_content();
-        } catch (Exception ignored){
-            System.out.println("invalid blogId : " + id);
-        }
-        finally {
-            return content + "<link rel=\"stylesheet\" href=\"/editormd/css/editormd.css\" />\n" +
-                    "    <script src=\"/editormd/src/jquery.min.js\" ></script>\n" +
-                    "    <script src=\"/editormd/editormd.js\"></script>\n" +
-                    "    <link rel=\"stylesheet\" href=\"/uikit/uikit-2.25.0/css/uikit.almost-flat.min.css\" />";
-        }
+    @RequestMapping(value = "/get_page", method = RequestMethod.GET)
+    public String getBlogById(){
+        return "/blogWithData.html";
     }
 
 
@@ -90,8 +78,7 @@ public class BlogController {
                                    @RequestParam("markdown") String markdown,
                                    @RequestParam("html") String html,
                                    @RequestParam("theme_id") Integer theme_id,
-                                   @RequestParam("content_abstract") String content_abstract,
-                                   @RequestParam("readable") Integer readable){
+                                   @RequestParam("content_abstract") String content_abstract){
         String currentTime = DateUtil.getCurrentTime();
         Blog blog = new Blog();
         blog.setTitle(title);
@@ -102,7 +89,7 @@ public class BlogController {
         blog.setCommit_date(currentTime);
         blog.setLasted_update_date(currentTime);
         blog.setRead_count(0);
-        blog.setReadable(readable);
+        blog.setReadable(1);
 
         Integer result = blogService.insertOneBlog(blog);
         return new ResponseData(200, result, "add blog success");
