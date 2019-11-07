@@ -49,7 +49,12 @@ public class BlogController {
     public ResponseData getBlogById(@RequestParam("id") Integer id){
         ResponseData responseData = new ResponseData();
         responseData.setResponse_code(200);
-        responseData.setResponse_data(blogService.getBlogById(id));
+        Blog blog = blogService.getBlogById(id);
+        blog.setHtml_content(blog.getHtml_content()+"<link rel=\"stylesheet\" href=\"/editormd/css/editormd.css\" />\n" +
+                "    <script src=\"/editormd/src/jquery.min.js\" ></script>\n" +
+                "    <script src=\"/editormd/editormd.js\"></script>\n" +
+                "    <link rel=\"stylesheet\" href=\"../static/uikit/uikit-2.25.0/css/uikit.almost-flat.min.css\" />");
+        responseData.setResponse_data(blog);
         responseData.setRemark("");
         return responseData;
     }
