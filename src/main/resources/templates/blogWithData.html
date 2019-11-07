@@ -3,24 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <title>正在加载...</title>
+    <style>
+        html{
+            display: block;
+        }
+        body{
+            position: relative;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            margin: 0;
+            padding: 0;
+            overflow: auto;
+        }
+        .markdown-preview{
+            left: 50%;
+            transform: translateX(-50%);
+            position: relative;
+            top: 0;
+            display: block;
+            padding: 2em calc(50% - 457px + 2em);
+        }
+    </style>
 </head>
 <body>
+    <div class="markdown-preview">
+        <div>
+            <!--blog title-->
+            <h1><span id="blog_title"></span></h1>
+        </div>
+        <div>
+            <div id="blog_content">
 
-    <div>
-        顶部
-    </div>
-    <div>
-        中间博客
-    </div>
-    <div>
-        底部评论
-    </div>
-    <div>
-        bottom
+            </div>
+        </div>
+        <div>
+            <!-- comments for blog -->
+        </div>
+        <div>
+            <!--todo sth at bottom-->
+        </div>
     </div>
 </body>
 <script>
     var parameters = window.location.search.substr(1);
+    var id = parseInt(parameters.substr(parameters.indexOf('id=') + 3));
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/blog/get_blog_by_id?id=" + id);
+    xhr.setRequestHeader("content-type", "application/json");
+    xhr.send();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            console.log(response);
+            var blog = response['response_data'];
+            console.log(blog);
+
+            document.getElementById('blog_title').innerHTML = blog['title'];
+            document.getElementById('blog_content').innerHTML = blog['html_content'];
+        }
+
+    };
+
+
     document.title = parameters;
 </script>
 </html>

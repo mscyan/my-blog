@@ -44,6 +44,16 @@ public class BlogController {
         return responseData;
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/get_blog_by_id", method = RequestMethod.GET)
+    public ResponseData getBlogById(@RequestParam("id") Integer id){
+        ResponseData responseData = new ResponseData();
+        responseData.setResponse_code(200);
+        responseData.setResponse_data(blogService.getBlogById(id));
+        responseData.setRemark("");
+        return responseData;
+    }
+
     @RequestMapping(value = "/get_page", method = RequestMethod.GET)
     public String getBlogById(){
         return "/blogWithData.html";
