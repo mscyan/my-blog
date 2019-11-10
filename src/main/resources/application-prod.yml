@@ -20,10 +20,10 @@ spring:
   thymeleaf:
     prefix: classpath:/templates
     suffix: .html
-  mvc:
-    static-path-pattern: /static/**
-  resources:
-    static-locations: classpath:/static
+#  mvc:
+#    static-path-pattern: /static/**
+#  resources:
+#    static-locations: classpath:/static
   servlet:
     multipart:
       max-file-size: 10MB
