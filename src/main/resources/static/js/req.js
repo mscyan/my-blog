@@ -125,7 +125,9 @@ function commit_blog(markdownData, htmlPrevData){
         if(xhr.readyState === 4 && xhr.status === 200){
             var response  = JSON.parse(xhr.responseText);
             var message = response.response_data;
-            alert(message);
+            if(message === 1){
+                alert("添加成功");
+            }
         }
     }
 }

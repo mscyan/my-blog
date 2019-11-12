@@ -60,17 +60,14 @@
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var response = JSON.parse(xhr.responseText);
-            console.log(response);
-            var blog = response['response_data'];
-            console.log(blog);
-
+            let blog = response['response_data'];
             document.getElementById('blog_title').innerHTML = blog['title'];
             document.getElementById('blog_content').innerHTML = blog['html_content'];
+            document.title = blog['title'];
         }
 
     };
 
 
-    document.title = parameters;
 </script>
 </html>
