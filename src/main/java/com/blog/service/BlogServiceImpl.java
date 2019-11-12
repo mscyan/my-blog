@@ -2,12 +2,10 @@ package com.blog.service;
 
 import com.blog.bean.Blog;
 import com.blog.mapper.BlogMapper;
-import com.utils.Base64Util;
 import com.utils.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,8 +38,8 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public ResponseData updateBlog(Blog blog) {
-        return null;
+    public Integer updateBlog(Blog blog) {
+        return blogMapper.updateBlog(blog);
     }
 
     @Override

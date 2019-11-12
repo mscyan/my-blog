@@ -69,6 +69,7 @@
 </html>
 <script type="text/javascript">
     let editor;
+    let global_id = null;
     var mode = 'create';
     $(function() {
         editor = editormd("editArea", {
@@ -116,11 +117,6 @@
         });
     });
 
-//    $(document).ready(function(){
-//        loadData();
-//    });
-
-
     function loadData(){
         let blog = null;
         var parameters = window.location.search.substr(1);
@@ -132,6 +128,7 @@
                     mode = 'update';
                     if(paras[1].split('=')[0] === 'id'){
                         var id = parseInt(paras[1].split('=')[1]);
+                        global_id = id;
                         console.log('id : ' + id);
                         var xhr = new XMLHttpRequest();
                         xhr.open("GET", "/blog/get_blog_by_id?id=" + id);
@@ -172,20 +169,44 @@
     function _commit_blog(){
 
         checkValid();
-//        console.log(mode);
         if(mode === 'create'){
             commit_blog(getMarkdownData(), getHtmlPreviewData());
         }
         else if(mode === 'update'){
-            //todo 更新文章，携带id
-            update_blog();
+            update_blog(global_id, getMarkdownData(), getHtmlPreviewData());
         }
     }
 
+    function update_blog(id, markdownData, htmlPrevData){
+        var title = document.getElementById('title').value;
+        var theme_id = document.getElementById('theme_selection').options[document.getElementById('theme_selection').selectedIndex].value;
+        var abstract = document.getElementById("content-abstract").value;
+        var readable = 1;
+
+        var form = new FormData();
+        form.append('id', id);
+        form.append('title', title);
+        form.append('markdown', markdownData);
+        form.append('html', htmlPrevData);
+        form.append('theme_id', theme_id);
+        form.append('content_abstract', abstract);
+        form.append('readable', readable);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/blog/update_blog', true);
+        xhr.send(form);
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState === 4 && xhr.status === 200){
+                var response  = JSON.parse(xhr.responseText);
+                var message = response.response_data;
+                if(message === 1){
+                    alert("更新成功");
+                }
+            }
+        }
+    }
 
     function checkValid(){
         var title = document.getElementById("title").value;
-//        var theme_id = document.getElementById('theme_selection').options[document.getElementById('theme_selection').selectedIndex].value;
         var abstract = document.getElementById("content-abstract").value;
         if(title === ''){
             alert("please input the title");

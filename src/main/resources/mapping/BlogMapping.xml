@@ -33,17 +33,16 @@
         select * from blog where id = #{id}
     </select>
 
-<!--    <update id="updateBlog" parameterType="com.blog.bean.Blog">-->
-<!--        update blog set-->
-<!--        theme_id = #{blog.theme_id},-->
-<!--        title = #{blog.title},-->
-<!--        content_abstract = #{blog.content_abstract},-->
-<!--        content = #{blog.content},-->
-<!--        commit_date = #{blog.commit_date},-->
-<!--        lasted_update_date = #{blog.lasted_update_date},-->
-<!--        read_count = #{blog.read_count},-->
-<!--        readable = #{blog.readable}-->
-<!--        where id = #{blog.id}-->
-<!--    </update>-->
+    <update id="updateBlog" parameterType="com.blog.bean.Blog">
+        update blog set
+        theme_id = #{blog.theme_id},
+        title = #{blog.title},
+        content_abstract = #{blog.content_abstract},
+        markdown_content = #{blog.markdown_content},
+        html_content = #{blog.html_content},
+        lasted_update_date = #{blog.lasted_update_date},
+        readable = #{blog.readable}
+        where id = #{blog.id}
+    </update>
 
 </mapper>

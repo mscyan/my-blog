@@ -33,50 +33,6 @@ function upload_file(url, method){
         }
     }
 }
-
-function upload_blog(url, method){
-    var fileBtn = document.getElementById('blog_html_file');
-    if(fileBtn.files[0] === undefined){
-        alert('please select a markdown file');
-        return;
-    }
-    else{
-        var title = document.getElementById('title').value;
-        var abstract = document.getElementById('content-abstract').value;
-        var theme_id = document.getElementById('theme_selection').options[document.getElementById('theme_selection').selectedIndex].value;
-        console.log(theme_id);
-        var fileTotalName = fileBtn.files[0].name;
-        if(fileTotalName.lastIndexOf('.') === -1){
-            alert("this file is not Suitable");
-        }
-        else{
-            var suffixName = fileTotalName.substring(fileTotalName.lastIndexOf('.') + 1, fileTotalName.length);
-            if(suffixName === 'html'){
-                var fd = new FormData();
-                fd.append('file', fileBtn.files[0]);
-                fd.append("title", title);
-                fd.append("content_abstract", abstract);
-                fd.append("theme_id", theme_id);
-                // console.log(title);
-                // console.log(abstract);
-                var xhr = new XMLHttpRequest();
-                xhr.open(method, url, true);
-                xhr.send(fd);
-                xhr.onreadystatechange = function(){
-                    if(xhr.readyState === 4 && xhr.status === 200){
-                        var response  = JSON.parse(xhr.responseText);
-                        var link = response.response_data;
-                        alert(link);
-                    }
-                }
-            }
-            else{
-                console.log("this file is not suitable");
-            }
-        }
-    }
-}
-
 function tweak(){
     var param1 = document.getElementById("un").value;
     var param2 = document.getElementById("pwd").value;

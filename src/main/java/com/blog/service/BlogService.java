@@ -13,7 +13,7 @@ public interface BlogService {
 
     Blog getBlogById(int id);
 
-    ResponseData updateBlog(Blog blog);
+    Integer updateBlog(Blog blog);
 
     ResponseData deleteBlogById_unreal(int id);
 
