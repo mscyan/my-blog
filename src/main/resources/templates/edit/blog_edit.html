@@ -2,9 +2,9 @@
 <head>
     <meta charset="UTF-8">
     <title>博客编辑</title>
-    <link rel="stylesheet" href="/editormd/css/editormd.css" />
-    <script src="/editormd/src/jquery.min.js" ></script>
-    <script src="/editormd/editormd.js"></script>
+    <link rel="stylesheet" href="/static/editormd/css/editormd.css" />
+    <script src="/static/editormd/src/jquery.min.js" ></script>
+    <script src="/static/editormd/src/editormd.js"></script>
     <link rel="stylesheet" href="../static/uikit/uikit-2.25.0/css/uikit.almost-flat.min.css" />
     <script src="/static/js/req.js"></script>
     <script>
@@ -66,17 +66,19 @@
     </div>
     <div id="editArea"></div>
 </body>
+</html>
 <script type="text/javascript">
-    var editor;
+    let editor;
+    var mode = 'create';
     $(function() {
         editor = editormd("editArea", {
             width: "90%",
             height: 700,
-            path : '/editormd/lib/',
+            path : '/static/editormd/lib/',
             // theme : "dark",
             // previewTheme : "dark",
             // editorTheme : "pastel-on-dark",
-            // markdown : md,
+//             markdown : md,
             codeFold : true,
             //syncScrolling : false,
             saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
@@ -99,19 +101,65 @@
             // imageUpload : true,
             // imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
             // imageUploadURL : "./php/upload.php",
-            // onload : function() {
-            //     console.log('onload', this);
-                //this.fullscreen();
-                //this.unwatch();
-                //this.watch().fullscreen();
+             onload : function() {
+//                 console.log('onload', this);
+                 loadData();
+            //this.fullscreen();
+            //this.unwatch();
+            //this.watch().fullscreen();
 
-                //this.setMarkdown("#PHP");
-                //this.width("100%");
-                //this.height(480);
-                //this.resize("100%", 640);
-            // }
+            //this.setMarkdown("#PHP");
+            //this.width("100%");
+            //this.height(480);
+            //this.resize("100%", 640);
+             }
         });
     });
+
+//    $(document).ready(function(){
+//        loadData();
+//    });
+
+
+    function loadData(){
+        let blog = null;
+        var parameters = window.location.search.substr(1);
+        if(parameters.length > 5){
+            // mode=update&id=5
+            var paras = parameters.split('&');
+            if(paras[0].split('=')[0] === 'mode'){
+                if(paras[0].split('=')[1] === 'update'){
+                    mode = 'update';
+                    if(paras[1].split('=')[0] === 'id'){
+                        var id = parseInt(paras[1].split('=')[1]);
+                        console.log('id : ' + id);
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("GET", "/blog/get_blog_by_id?id=" + id);
+                        xhr.setRequestHeader("content-type", "application/json");
+                        xhr.send();
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState === 4 && xhr.status === 200) {
+                                var response = JSON.parse(xhr.responseText);
+                                let blog = response['response_data'];
+                                document.getElementById('title').value = blog.title;
+                                document.getElementById('content-abstract').value = blog.content_abstract;
+                                console.log(editor);
+                                editor.setMarkdown(blog.markdown_content);
+                                var select = document.getElementById('theme_selection');
+                                for(var i=0; i<select.options.length; i++){
+                                    if(select.options[i].value == blog.theme_id){
+                                        select.options[i].selected = true;
+                                        console.log(select.options[i].value);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     function getMarkdownData(){
         return editor.getMarkdown();
@@ -122,15 +170,18 @@
     }
 
     function _commit_blog(){
+
         checkValid();
-        console.log(getMarkdownData());
-        console.log(getHtmlPreviewData());
-        commit_blog(getMarkdownData(), getHtmlPreviewData());
+//        console.log(mode);
+        if(mode === 'create'){
+            commit_blog(getMarkdownData(), getHtmlPreviewData());
+        }
+        else if(mode === 'update'){
+            //todo 更新文章，携带id
+            update_blog();
+        }
     }
 
-    function printMarkdown(){
-        alert(getMarkdownData());
-    }
 
     function checkValid(){
         var title = document.getElementById("title").value;
@@ -148,6 +199,7 @@
 
     function update(){
         //若服务器没有该blog，则初始化新的记录，若存在，则更新值
+
     }
 
     //自动保存，一般在不小心跳转或者关闭页面的时候触发，也有定时保存。
@@ -155,4 +207,3 @@
         //todo;
     }
 </script>
-</html>

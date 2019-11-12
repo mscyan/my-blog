@@ -22,6 +22,7 @@
                     const tbody = document.getElementById("tbody");
                     for(var i = 0; i<list.length; i++){
                         var tr = document.createElement("tr");
+                        //todo 博客主题获取，表单状态标识逻辑
                         tr.innerHTML = "<td>" + list[i].id + "</td>" +
                             "<td>" + list[i].title + "</td>" +
                             "<td>" + '未知' + "</td>" +
@@ -44,6 +45,7 @@
         }
         function edit_blog(id){
             console.log("edit blog for " + id);
+            window.location.href = "/blog/blog_edit?mode=update&id=" + id;
             //进入编辑页面，携带id参数，新页面初始化页面数据，后续逻辑与新建blog逻辑一致。
         }
     </script>
@@ -65,12 +67,6 @@
         </tr>
         </thead>
         <tbody id="tbody">
-        <!--<tr>-->
-            <!--<td>Table Data</td>-->
-            <!--<td>Table Data</td>-->
-            <!--<td>Table Data</td>-->
-            <!--<td>Table Data</td>-->
-        <!--</tr>-->
         </tbody>
     </table>
 </div>
