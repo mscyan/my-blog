@@ -5,91 +5,24 @@
 	<title>颜超</title>
 	<link rel="stylesheet" href="../static/uikit/uikit-2.25.0/css/uikit.min.css" />
 	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	<link rel="stylesheet" href="/static/mdl/material.css"/>
+	<script src="/static/js/vue.js"></script>
     <style>
-        html{
-            /*background-color: #e8f8f8;*/
-        }
-        .nav-li{
-            font-size: initial;
-            width: 100%;
-            text-align: center;
-            display: block;
-        }
         li{
             list-style-type: none;
         }
-		.blog-uri{
-			text-decoration: none;
-			color: #000;
+		.demo-card-wide.mdl-card {
+			width: 100%;
 		}
-        .shadow-div{
-            margin-left: 15px;
-            margin-right: 15px;
-            box-shadow: 0 0 3px 3px #d2d2d2;
-        }
-        .no-ver-padding{
-            padding-left: 0;
-            padding-right: 0;
-        }
+		.demo-card-wide > .mdl-card__title {
+			color: #fff;
+			height: 176px;
+			background: url('https://pbs.twimg.com/profile_banners/1058778308689616896/1541267732/1080x360') center / cover;
+		}
+		.demo-card-wide > .mdl-card__menu {
+			color: #fff;
+		}
     </style>
-    <script>
-        //向后台获取blog列表
-        function pullBlogsFromBack(theme){
-            // console.log(theme);
-            if(theme === undefined){
-                theme = '';
-            }
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", "/blog/getBlog/"+theme, true);
-            xhr.setRequestHeader("content-type", "application/json");
-            xhr.send();
-            xhr.onreadystatechange = function(){
-                if(xhr.readyState === 4 && xhr.status === 200){
-                    var response = JSON.parse(xhr.responseText);
-                    var list = JSON.parse(response['response_data']);
-                    //初始化页面结构
-                    clearBlogElements();
-                    for(var i=0;i<list.length;i++){
-                    	// console.log(list[i]);
-                        var title = list[i].title;
-                        var content_abstract = list[i].content_abstract;
-                        var id = list[i].id;
-                        var li = document.createElement("li");
-                        li.innerHTML = '<article class="uk-article">' +
-								'<div class="blog-title uk-text-large uk-text-bold"><a class="blog-uri" href="/blog/get_page?id=' + id + '" target="_self">' + title + '</a></div>' +
-								'<div class="content-abstract uk-text-muted">' + content_abstract + '</div>' +
-								'</article>' +
-								'<hr/>';
-						document.getElementById('blog-list').appendChild(li);
-                    }
-                    if(list === undefined || list.length === 0){
-                        document.getElementById('blog-list').innerHTML = '空空的';
-                    }
-                }
-            }
-        }
-        pullBlogsFromBack();
-
-        function loadBlogsByTheme(theme){
-            if(theme === 'blogs'){
-                pullBlogsFromBack('blogs');
-                document.getElementById('blogs-nav').style.backgroundColor = '#00a8e6';
-                document.getElementById('algorithm-nav').style.backgroundColor = '#f5f5f5';
-            }
-            else if(theme === 'algorithm'){
-                pullBlogsFromBack('algorithm');
-                document.getElementById('algorithm-nav').style.backgroundColor = '#00a8e6';
-                document.getElementById('blogs-nav').style.backgroundColor = '#f5f5f5';
-            }
-        }
-
-        function clearBlogElements(){
-            var blogX = document.getElementById('blog-list');
-            while(blogX.hasChildNodes()){
-                blogX.removeChild(blogX.firstChild);
-            }
-        }
-    </script>
 </head>
 <body>
 	<div class="uk-block uk-block-secondary uk-contrast">
@@ -102,33 +35,47 @@
 			<span><a target="_blank" href="https://twitter.com/CHAOSCYAN" class="uk-icon-button uk-icon-hover uk-icon-twitter icon"></a></span>
 		</div>
 	</div>
-	<div class="uk-block">
-		<div class="uk-container-center uk-container">
-			<div class="uk-flex" >
-				<div class="left-div uk-width-1-4 uk-panel">
-                    <div class="shadow-div no-ver-padding bg-green uk-panel-box uk-panel-box">
-                        <ul class=" uk-nav uk-nav-dropdown uk-nav-parent-icon">
-                            <li class="nav-li uk-text-large" id="blogs-nav" onclick="loadBlogsByTheme('blogs')"><a>博客</a></li>
-                            <li class="nav-li uk-text-large" id="algorithm-nav" onclick="loadBlogsByTheme('algorithm')"><a>算法</a></li>
-                            <li class="nav-li uk-text-large"><a href="#">分类</a></li>
-                        </ul>
-                    </div>
+	<div id="app">
+		<div class="uk-block">
+			<div class="uk-container-center uk-container">
+				<div v-for="item in list" class="uk-flex uk-flex-center">
+					<div  style="margin-top: 20px">
+						<div class="demo-card-wide mdl-card mdl-shadow--2dp">
+							<div class="mdl-card__title">
+								<h2 class="mdl-card__title-text">Welcome</h2>
+							</div>
+							<div class="mdl-card__supporting-text">
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+								Mauris sagittis pellentesque lacus eleifend lacinia...
+							</div>
+							<div class="mdl-card__actions mdl-card--border">
+								<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+									Get Started
+								</a>
+							</div>
+							<div class="mdl-card__menu">
+								<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+									<i class="material-icons">A</i>
+								</button>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="right-div shadow-div uk-width-3-4 uk-container" style="background-color:#fff;padding-top: 20px">
-                    <div >
-                        <ul id="blog-list">
-                            <!--<li>-->
-                                <!--<article class="uk-article">-->
-                                    <!--<div class="blog-title uk-text-large uk-text-bold">DEMO-TITLE<a href="#"></a></div>-->
-                                    <!--<div class="content-abstract uk-text-muted">DEMO-CONTENT</div>-->
-                                    <!--</article>-->
-                                <!--<hr/>-->
-                            <!--</li>-->
-                        </ul>
-                    </div>
-				</div>
+
 			</div>
 		</div>
 	</div>
 </body>
+<script>
+	var app = new Vue({
+		el: '#app',
+		data: {
+			project: 'my blog',
+			list: [1,2,3]
+		},
+		method: {
+
+		}
+	})
+</script>
 </html>
