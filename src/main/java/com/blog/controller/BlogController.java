@@ -23,6 +23,29 @@ public class BlogController {
     @Autowired
     private ThemeService themeService;
 
+
+    @RequestMapping(value = "/get_page", method = RequestMethod.GET)
+    public String getBlogById(){
+        return "/blogWithData.html";
+    }
+
+    @RequestMapping(value = "blog_edit", method = RequestMethod.GET)
+    public String blog_edit(){
+        return "/edit/blog_edit.html";
+    }
+
+    @RequestMapping("/back")
+    public String blogManager(){
+        return "/blogManager.html";
+    }
+
+    @RequestMapping(value = "check_title", method = RequestMethod.POST)
+    public String checkBlogTitle(){
+        return "";
+    }
+
+
+
     @ApiOperation(value = "获取Blog")
     @ResponseBody
     @RequestMapping(value = {"/getBlog/{theme}", "/getBlog"}, method = RequestMethod.GET)
@@ -59,11 +82,6 @@ public class BlogController {
         return responseData;
     }
 
-    @RequestMapping(value = "/get_page", method = RequestMethod.GET)
-    public String getBlogById(){
-        return "/blogWithData.html";
-    }
-
     @ResponseBody
     @RequestMapping(value = "/update_blog", method = RequestMethod.POST)
     public ResponseData updateBlog(@RequestParam("id") Integer id,
@@ -92,21 +110,6 @@ public class BlogController {
     public ResponseData getThemes(){
         String themes = JSONArray.toJSONString(themeService.getThemes());
         return new ResponseData(200, themes, "success");
-    }
-
-    @RequestMapping(value = "blog_edit", method = RequestMethod.GET)
-    public String blog_edit(){
-        return "/edit/blog_edit.html";
-    }
-
-    @RequestMapping("/back")
-    public String blogManager(){
-        return "/blogManager.html";
-    }
-
-    @RequestMapping(value = "check_title", method = RequestMethod.POST)
-    public String checkBlogTitle(){
-        return "";
     }
 
     @RequestMapping(value = "/commit_blog", method = RequestMethod.POST)
