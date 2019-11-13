@@ -17,6 +17,8 @@ public interface BlogMapper {
 
     List<Blog> getBlogs();
 
+    List<Blog> getAllBlogs();
+
     List<Blog> getAlgorithmBlogs();
 
     void insertToBlog(@Param("blog") Blog blog);

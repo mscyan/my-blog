@@ -39,6 +39,16 @@ public class BlogController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/get_all_blog", method = RequestMethod.GET)
+    public ResponseData getAllBlog(){
+        ResponseData responseData = new ResponseData();
+        responseData.setResponse_code(200);
+        responseData.setResponse_data(JSONArray.toJSONString(blogService.getAllBlogs()));
+        responseData.setRemark("");
+        return responseData;
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/get_blog_by_id", method = RequestMethod.GET)
     public ResponseData getBlogById(@RequestParam("id") Integer id){
         ResponseData responseData = new ResponseData();

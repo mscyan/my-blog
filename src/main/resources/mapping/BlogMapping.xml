@@ -29,6 +29,12 @@
         order by commit_date desc
     </select>
 
+    <select id="getAllBlogs" resultType="com.blog.bean.Blog">
+        select id, title, 'NULL' as html_content, 'NULL' as markdown_content, content_abstract, commit_date, lasted_update_date, read_count, readable
+        from blog
+        order by commit_date desc
+    </select>
+
     <select id="getBlogById" resultType="com.blog.bean.Blog" parameterType="int">
         select * from blog where id = #{id}
     </select>

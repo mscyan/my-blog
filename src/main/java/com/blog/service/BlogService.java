@@ -11,6 +11,8 @@ public interface BlogService {
 
     List<Blog> getBlogs(int pageSize, int pageNumber, String themeId);
 
+    List<Blog> getAllBlogs();
+
     Blog getBlogById(int id);
 
     Integer updateBlog(Blog blog);

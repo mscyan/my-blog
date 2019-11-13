@@ -12,7 +12,7 @@
         //向后台获取blog列表
         function initTable() {
             var xhr = new XMLHttpRequest();
-            xhr.open("GET", "/blog/getBlog/", true);
+            xhr.open("GET", "/blog/get_all_blog/", true);
             xhr.setRequestHeader("content-type", "application/json");
             xhr.send();
             xhr.onreadystatechange = function () {
