@@ -89,6 +89,7 @@ public class BlogController {
                                    @RequestParam("markdown") String markdown,
                                    @RequestParam("html") String html,
                                    @RequestParam("theme_id") Integer theme_id,
+                                   @RequestParam("cover_image") String cover_image,
                                    @RequestParam("content_abstract") String content_abstract){
         String currentTime = DateUtil.getCurrentTime();
         Blog blog = new Blog();
@@ -96,6 +97,7 @@ public class BlogController {
         blog.setTitle(title);
         blog.setContent_abstract(content_abstract);
         blog.setMarkdown_content(markdown);
+        blog.setCover_image(cover_image);
         blog.setHtml_content(html);
         blog.setTheme_id(theme_id);
         blog.setLasted_update_date(currentTime);

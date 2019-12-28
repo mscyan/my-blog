@@ -1,6 +1,9 @@
 package com.blog.service;
 
+import com.alibaba.druid.util.StringUtils;
 import com.blog.bean.Blog;
+import com.blog.bean.BlogInfo;
+import com.blog.bean.Theme;
 import com.blog.mapper.BlogMapper;
 import com.utils.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +24,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public List<Blog> getBlogs(int pageSize, int pageNumber, String themeId) {
+    public List<BlogInfo> getBlogs(int pageSize, int pageNumber, String themeId) {
         List<Blog> blogs = new ArrayList<>();
         if(themeId.equals("blogs")){
             blogs = blogMapper.getBlogs();
@@ -29,7 +32,31 @@ public class BlogServiceImpl implements BlogService {
         else if(themeId.equals("algorithm")){
             blogs = blogMapper.getAlgorithmBlogs();
         }
-        return blogs;
+        List<BlogInfo> blogInfos = new ArrayList<>();
+        for(Blog item : blogs){
+            BlogInfo blogInfo = new BlogInfo();
+            blogInfo.setCommitDate(item.getCommit_date());
+            blogInfo.setContentAbstract(item.getContent_abstract());
+            blogInfo.setHtmlContent(item.getHtml_content());
+            blogInfo.setReadCount(item.getRead_count());
+            blogInfo.setTitle(item.getTitle());
+            blogInfo.setId(item.getId());
+            blogInfo.setLastUpdateDate(item.getLasted_update_date());
+
+            if(!StringUtils.isEmpty(item.getCover_image())){
+                blogInfo.setHasCover(true);
+                blogInfo.setCoverImageUrl(item.getCover_image());
+            }
+            else{
+                blogInfo.setHasCover(false);
+            }
+
+            List<Theme> themeList = null;
+            blogInfo.setThemeList(themeList);
+
+            blogInfos.add(blogInfo);
+        }
+        return blogInfos;
     }
 
     @Override

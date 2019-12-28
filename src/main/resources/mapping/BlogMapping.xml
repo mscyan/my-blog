@@ -8,11 +8,11 @@
     <insert id="insertBlog" parameterType="com.blog.bean.Blog">
         insert into blog
         (theme_id, title, content_abstract, markdown_content, html_content, commit_date,
-        lasted_update_date, read_count, readable)
+        lasted_update_date, read_count, readable, cover_image)
         values
         (#{blog.theme_id}, #{blog.title}, #{blog.content_abstract}, #{blog.markdown_content},
         #{blog.html_content},
-        #{blog.commit_date}, #{blog.lasted_update_date}, #{blog.read_count}, #{blog.readable})
+        #{blog.commit_date}, #{blog.lasted_update_date}, #{blog.read_count}, #{blog.readable}, #{blog.cover_image})
     </insert>
 
     <select id="getAlgorithmBlogs" resultType="com.blog.bean.Blog">
@@ -23,7 +23,7 @@
     </select>
 
     <select id="getBlogs" resultType="com.blog.bean.Blog">
-        select id, title, 'NULL' as html_content, 'NULL' as markdown_content, content_abstract, commit_date, lasted_update_date, read_count, readable
+        select id, title, 'NULL' as html_content, 'NULL' as markdown_content, content_abstract, commit_date, lasted_update_date, read_count, readable, cover_image
         from blog
         where theme_id != 1 and readable = 1
         order by commit_date desc
@@ -47,7 +47,8 @@
         markdown_content = #{blog.markdown_content},
         html_content = #{blog.html_content},
         lasted_update_date = #{blog.lasted_update_date},
-        readable = #{blog.readable}
+        readable = #{blog.readable},
+        cover_image = #{blog.cover_image}
         where id = #{blog.id}
     </update>
 

@@ -6,57 +6,55 @@
 	<link rel="stylesheet" href="../static/uikit/uikit-2.25.0/css/uikit.min.css" />
 	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 	<link rel="stylesheet" href="/static/mdl/material.css"/>
+	<link rel="stylesheet" href="/static/mdl/style.css"/>
 	<script src="/static/js/vue.js"></script>
     <style>
         li{
             list-style-type: none;
         }
-		.demo-card-wide.mdl-card {
-			width: 100%;
-		}
-		.demo-card-wide > .mdl-card__title {
-			color: #fff;
-			height: 176px;
-			background: url('https://pbs.twimg.com/profile_banners/1058778308689616896/1541267732/1080x360') center / cover;
-		}
-		.demo-card-wide > .mdl-card__menu {
-			color: #fff;
+		.header-icon-span {
+			margin-right: 5px;
 		}
     </style>
 </head>
 <body>
 	<div class="uk-block uk-block-secondary uk-contrast">
 		<div class="uk-container uk-container-center">
-			<h1 class=" uk-responsive-width">颜超——Java Developer</h1>
+			<h2 class=" uk-responsive-width">颜超——Java Developer</h2>
 		</div>
 		<div class="uk-container uk-container-center">
-			<span><a target="_blank" href="https://github.com/mscyan" class="uk-icon-button uk-icon-hover uk-icon-github icon"></a></span>
-			<span><a target="_blank" href="https://stackoverflow.com/users/8979577/yanchao" class="uk-icon-button uk-icon-hover uk-icon-stack-overflow icon"></a></span>
-			<span><a target="_blank" href="https://twitter.com/CHAOSCYAN" class="uk-icon-button uk-icon-hover uk-icon-twitter icon"></a></span>
+			<span class="header-icon-span"><a target="_blank" href="https://github.com/mscyan" class="uk-icon-button uk-icon-hover uk-icon-github icon"></a></span>
+			<span class="header-icon-span"><a target="_blank" href="https://stackoverflow.com/users/8979577/yanchao" class="uk-icon-button uk-icon-hover uk-icon-stack-overflow icon"></a></span>
+			<span class="header-icon-span"><a target="_blank" href="https://twitter.com/CHAOSCYAN" class="uk-icon-button uk-icon-hover uk-icon-twitter icon"></a></span>
 		</div>
 	</div>
 	<div id="app">
 		<div class="uk-block">
 			<div class="uk-container-center uk-container">
-				<div v-for="item in list" class="uk-flex uk-flex-center">
-					<div  style="margin-top: 20px">
-						<div class="demo-card-wide mdl-card mdl-shadow--2dp">
-							<div class="mdl-card__title">
-								<h2 class="mdl-card__title-text">Welcome</h2>
+				<div v-for="item in blogList" class="uk-flex uk-flex-center">
+
+					<div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-card mdl-shadow--4dp">
+						<div v-if="item.hasCover" class="mdl-card__media mdl-cell mdl-cell--8-col-tablet">
+							<img class="article-image" :src="item.coverImageUrl" border="0" alt="">
+						</div>
+						<div v-if="!item.hasCover" class="mdl-cell mdl-cell--12-col">
+							<h2 class="mdl-card__title-text"><a :href=" '/blog/get_page?id=' + item.id">{{item.title}}</a></h2>
+							<div class="mdl-card__supporting-text padding-top">
+								<span>Posted at {{item.commitDate.substr(0, 10)}}</span>
 							</div>
-							<div class="mdl-card__supporting-text">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-								Mauris sagittis pellentesque lacus eleifend lacinia...
+							<div class="mdl-card__supporting-text no-left-padding">
+								<p>{{item.contentAbstract}} </p>
+								<span>Category: <a>Latest</a></span>
 							</div>
-							<div class="mdl-card__actions mdl-card--border">
-								<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-									Get Started
-								</a>
+						</div>
+						<div v-else class="mdl-cell mdl-cell--8-col">
+							<h2 class="mdl-card__title-text"><a :href=" '/blog/get_page?id=' + item.id">{{item.title}}</a></h2>
+							<div class="mdl-card__supporting-text padding-top">
+								<span>Posted at {{item.commitDate.substr(0, 10)}}</span>
 							</div>
-							<div class="mdl-card__menu">
-								<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-									<i class="material-icons">A</i>
-								</button>
+							<div class="mdl-card__supporting-text no-left-padding">
+								<p>{{item.contentAbstract}}</p>
+								<span>Category: <a>Latest</a></span>
 							</div>
 						</div>
 					</div>
@@ -71,10 +69,32 @@
 		el: '#app',
 		data: {
 			project: 'my blog',
-			list: [1,2,3]
+			blogList: []
 		},
-		method: {
-
+		created: function() {
+			this.getBlogData();
+		},
+		// mounted: function() {
+		// 	this.blogList = [];
+		// },
+		methods: {
+			getBlogData: function() {
+				let _this = this;
+				_this.blogList = [];
+				let xhr = new XMLHttpRequest();
+				xhr.open("GET", "/blog/getBlog/", true);
+				xhr.setRequestHeader("content-type", "application/json");
+				xhr.send();
+				xhr.onreadystatechange = function(){
+					if(xhr.readyState === 4 && xhr.status === 200){
+						let response = JSON.parse(xhr.responseText);
+						let list = JSON.parse(response['response_data']);
+						for(let i=0; i<list.length; i++){
+							_this.blogList.push(list[i]);
+						}
+					}
+				}
+			}
 		}
 	})
 </script>

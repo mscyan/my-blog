@@ -47,6 +47,10 @@
                     <input type="text" class="uk-form-width-large" id="title" />
                 </div>
                 <div class="uk-form-row">
+                    <label class="uk-text-primary uk-form-label"  for="title">博客封面图：</label>
+                    <input type="text" class="uk-form-width-large" id="cover" />
+                </div>
+                <div class="uk-form-row">
                     <label class="uk-text-primary uk-form-label"  for="theme_selection">博客的主题：</label>
                     <select id="theme_selection">
                         <option value="0" selected="selected">选择一个theme吧！</option>
@@ -181,6 +185,7 @@
         var title = document.getElementById('title').value;
         var theme_id = document.getElementById('theme_selection').options[document.getElementById('theme_selection').selectedIndex].value;
         var abstract = document.getElementById("content-abstract").value;
+        var cover = document.getElementById("cover").value;
         var readable = 1;
 
         var form = new FormData();
@@ -191,6 +196,7 @@
         form.append('theme_id', theme_id);
         form.append('content_abstract', abstract);
         form.append('readable', readable);
+        form.append('cover_image', cover);
         var xhr = new XMLHttpRequest();
         xhr.open('POST', '/blog/update_blog', true);
         xhr.send(form);

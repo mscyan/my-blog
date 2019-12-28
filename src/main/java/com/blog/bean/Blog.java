@@ -10,6 +10,7 @@ public class Blog {
     private String html_content;
     private String commit_date;
     private String lasted_update_date;
+    private String cover_image;
     private int read_count;
     private int readable;
 
@@ -91,5 +92,13 @@ public class Blog {
 
     public void setReadable(int readable) {
         this.readable = readable;
+    }
+
+    public String getCover_image() {
+        return cover_image;
+    }
+
+    public void setCover_image(String cover_image) {
+        this.cover_image = cover_image;
     }
 }

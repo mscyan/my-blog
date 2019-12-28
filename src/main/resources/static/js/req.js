@@ -65,6 +65,7 @@ function commit_blog(markdownData, htmlPrevData){
     var theme_id = document.getElementById('theme_selection').options[document.getElementById('theme_selection').selectedIndex].value;
     var abstract = document.getElementById("content-abstract").value;
     var id = -1;
+    var cover = document.getElementById("cover").value;
     var readable = 1;
 
     var form = new FormData();
@@ -74,6 +75,7 @@ function commit_blog(markdownData, htmlPrevData){
     form.append('theme_id', theme_id);
     form.append('content_abstract', abstract);
     form.append('readable', readable);
+    form.append('cover_image', cover);
     var xhr = new XMLHttpRequest();
     xhr.open('POST', '/blog/commit_blog', true);
     xhr.send(form);
