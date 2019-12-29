@@ -2,16 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>正在加载...</title>
-    <link rel="stylesheet" href="/editormd/css/editormd.css" />
-    <script src="/editormd/src/jquery.min.js" ></script>
+    <link rel="stylesheet" href="/editormd/css/editormd.css"/>
+    <script src="/editormd/src/jquery.min.js"></script>
     <script src="/editormd/editormd.js"></script>
-    <link rel="stylesheet" href="../static/uikit/uikit-2.25.0/css/uikit.almost-flat.min.css" />
+    <link rel="stylesheet" href="/static/mdl/material.css"/>
+    <link rel="stylesheet" href="/static/uikit/uikit-2.25.0/css/uikit.min.css"/>
+    <link rel="stylesheet" href="/static/mdl/style.css"/>
+    <script src="/static/js/vue.js"></script>
     <style>
-        html{
+        html {
             display: block;
         }
-        body{
+
+        body {
             position: relative;
             width: 100%;
             height: 100%;
@@ -21,34 +26,82 @@
             padding: 0;
             overflow: auto;
         }
-        .markdown-preview{
-            left: 50%;
-            transform: translateX(-50%);
-            position: relative;
-            top: 0;
-            display: block;
-            padding: 2em calc(50% - 457px + 2em);
+
+        .top-head{
+            width: 100%;
+            overflow: scroll;
+            padding-left: 0px;
+            background: rgb(255, 255, 255);
         }
+
+        .top-head::-webkit-scrollbar {
+
+            display:none
+
+        }
+
+        .head-block {
+            width: 100%;
+            height: 40vh;
+            background-color: #000;
+            -webkit-flex-shrink: 0;
+            -ms-flex-negative: 0;
+            flex-shrink: 0;
+        }
+
+        .content-block {
+            margin-top: -35vh;
+            -webkit-flex-shrink: 0;
+            -ms-flex-negative: 0;
+            flex-shrink: 0;
+            overflow: visible;
+        }
+
+        .markdown-preview {
+            margin: 0px auto;
+            border-radius: 2px;
+            padding: 80px 56px;
+            /*margin-bottom: 80px;*/
+            width: calc(66.6666666667% - 16px);
+            background: #fff;
+        }
+
+        .two-level-container{
+            max-width: 1600px;
+            width: calc(100% - 16px);
+            margin: 0 auto;
+        }
+
     </style>
 </head>
 <body>
-    <div class="markdown-preview">
-        <div>
-            <!--blog title-->
-            <h1><span id="blog_title"></span></h1>
-        </div>
-        <div>
-            <div id="blog_content">
+<div class="uk-block uk-container">
+    <div class="top-head mdl-layout__header-row"><span class="mdl-layout-title" id="blog_title"></span></div>
+</div>
+<div class="head-block">
+    <div class="uk-container uk-container-center">
+    </div>
+</div>
 
+<div class="content-block">
+    <div class="two-level-container mdl-grid">
+        <div class="markdown-preview mdl-shadow--4dp">
+            <div>
+            </div>
+            <div>
+                <div id="blog_content">
+
+                </div>
+            </div>
+            <div>
+                <!-- comments for blog -->
+            </div>
+            <div>
+                <!--todo sth at bottom-->
             </div>
         </div>
-        <div>
-            <!-- comments for blog -->
-        </div>
-        <div>
-            <!--todo sth at bottom-->
-        </div>
     </div>
+</div>
 </body>
 <script>
     var parameters = window.location.search.substr(1);

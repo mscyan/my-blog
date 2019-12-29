@@ -89,3 +89,20 @@ function commit_blog(markdownData, htmlPrevData){
         }
     }
 }
+
+//todo 通用post方法
+function doPost(jsonData, url) {
+
+}
+//todo 通用get方法
+function doGet(url) {
+
+}
+
+// function doPut(jsonData, url) {
+//
+// }
+//
+// function doDelete(jsonData, url) {
+//
+// }

@@ -24,4 +24,8 @@ public interface BlogMapper {
     void insertToBlog(@Param("blog") Blog blog);
 
     Integer updateBlog(@Param("blog") Blog blog);
+
+    Integer closeBlog(@Param("id") int id);
+
+    Integer openBlog(@Param("id") int id);
 }

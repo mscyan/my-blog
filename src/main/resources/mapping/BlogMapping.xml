@@ -52,4 +52,12 @@
         where id = #{blog.id}
     </update>
 
+    <update id="closeBlog" parameterType="int">
+        update blog set readable = 0 where id = #{id}
+    </update>
+
+    <update id="openBlog" parameterType="int">
+        update blog set readable = 1 where id = #{id}
+    </update>
+
 </mapper>

@@ -21,4 +21,8 @@ public interface BlogService {
     ResponseData deleteBlogById_unreal(int id);
 
     ResponseData deleteBlogById_real(int id);
+
+    ResponseData closeBlog(int id);
+
+    ResponseData openBlog(int id);
 }

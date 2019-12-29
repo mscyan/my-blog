@@ -8,6 +8,7 @@ import com.utils.DateUtil;
 import com.utils.ResponseData;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -135,5 +136,17 @@ public class BlogController {
 
         Integer result = blogService.insertOneBlog(blog);
         return new ResponseData(200, result, "add blog success");
+    }
+
+    @RequestMapping(value = "close_blog", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData closeBlog(@RequestParam("id") int id){
+        return blogService.closeBlog(id);
+    }
+
+    @RequestMapping(value = "open_blog", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseData openBlog(@RequestParam("id") int id){
+        return blogService.openBlog(id);
     }
 }

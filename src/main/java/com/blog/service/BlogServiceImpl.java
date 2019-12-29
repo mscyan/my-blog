@@ -83,4 +83,16 @@ public class BlogServiceImpl implements BlogService {
     public ResponseData deleteBlogById_real(int id) {
         return null;
     }
+
+    @Override
+    public ResponseData closeBlog(int id) {
+        blogMapper.closeBlog(id);
+        return new ResponseData();
+    }
+
+    @Override
+    public ResponseData openBlog(int id) {
+        blogMapper.openBlog(id);
+        return new ResponseData();
+    }
 }

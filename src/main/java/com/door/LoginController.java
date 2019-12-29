@@ -33,7 +33,7 @@ public class LoginController {
             responseData.setResponse_data("success");
             responseData.setRemark("");
             Cookie cookie = new Cookie("a2V5", "eW91a25vd3doYXQ=");
-            cookie.setMaxAge(3000);
+            cookie.setMaxAge(3600 * 24 * 7);
             cookie.setPath("/");
             response.addCookie(cookie);
             return responseData;

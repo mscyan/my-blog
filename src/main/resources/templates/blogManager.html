@@ -3,24 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>博客管理</title>
-    <link rel="stylesheet" href="../static/uikit/uikit-2.25.0/css/uikit.almost-flat.min.css"/>
-    <meta name="viewport"
-          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link rel="stylesheet" href="../static/uikit/uikit-2.25.0/css/uikit.css"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <script type="text/javascript" src="/static/js/req.js"></script>
+    <script type="text/javascript" src="/static/mdl/material.js"></script>
+    <link rel="stylesheet" href="/static/mdl/material.css"/>
+    <link rel="stylesheet" href="/static/mdl/style.css"/>
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-amber.min.css" />
+    <script src="/static/js/vue.js"></script>
     <script>
         //获取表格，填充，构造按钮，点击编辑则进入编辑页面，点击关闭则将deleted字段设为1
         //向后台获取blog列表
         function initTable() {
             var xhr = new XMLHttpRequest();
-            xhr.open("GET", "/blog/get_all_blog/", true);
-            xhr.setRequestHeader("content-type", "application/json");
-            xhr.send();
+            // xhr.open("GET", "/blog/get_all_blog/", true);
+            // xhr.setRequestHeader("content-type", "application/json");
+            // xhr.send();
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var response = JSON.parse(xhr.responseText);
                     var list = JSON.parse(response['response_data']);
                     const tbody = document.getElementById("tbody");
-                    for(var i = 0; i<list.length; i++){
+                    for (var i = 0; i < list.length; i++) {
                         var tr = document.createElement("tr");
                         //todo 博客主题获取，表单状态标识逻辑
                         tr.innerHTML = "<td>" + list[i].id + "</td>" +
@@ -29,46 +33,131 @@
                             "<td>" + list[i].commit_date + "</td>" +
                             "<td>" + list[i].lasted_update_date + "</td>" +
                             "<td>" + '<button type="button" class="uk-button uk-button-danger" onclick="close_blog(' + list[i].id + ')">关闭</button>' +
-                                "&nbsp;&nbsp;" +
-                                    '<button type="button" class="uk-button uk-button-primary" onclick="edit_blog(' + list[i].id + ')">编辑</button>' +
+                            "&nbsp;&nbsp;" +
+                            '<button type="button" class="uk-button uk-button-primary" onclick="edit_blog(' + list[i].id + ')">编辑</button>' +
                             "</td>";
                         tbody.appendChild(tr);
                     }
                 }
             };
         }
-        initTable();
-
-        function close_blog(id){
-            alert("are you sure to delete close this blog ?");
-            console.log("close blog for " + id);
-        }
-        function edit_blog(id){
-            console.log("edit blog for " + id);
-            window.location.href = "/blog/blog_edit?mode=update&id=" + id;
-            //进入编辑页面，携带id参数，新页面初始化页面数据，后续逻辑与新建blog逻辑一致。
-        }
+        // initTable();
     </script>
     <style>
-
+        th{
+            text-align: center !important;
+        }
+        td {
+            text-align: left !important;
+        }
+        .margin-right-5px{
+            margin-right: 5px;
+        }
     </style>
 </head>
 <body>
-<div class="uk-container-center">
-    <table class="uk-table uk-table-hover uk-table-striped">
+<div id="blogTable">
+    <div>
+        <button class="mdl-button mdl-js-button mdl-button- mdl-button--raised" @click="newBlog">新建</button>
+    </div>
+
+    <table class="mdl-data-table mdl-data-table--selectable mdl-js-data-table mdl-shadow--4dp">
         <thead>
         <tr>
-            <th>ID</th>
+            <th class="mdl-data-table__cell--non-numeric">Id</th>
             <th>标题</th>
+            <th>提交时间</th>
+            <th>最后更新时间</th>
+            <th>阅读数量（次）</th>
             <th>主题</th>
-            <th>发布时间</th>
-            <th>最近修改时间</th>
+            <th>是否展示</th>
             <th>操作</th>
         </tr>
         </thead>
-        <tbody id="tbody">
+        <tbody>
+        <tr v-for="blogItem in blogList">
+            <td>{{blogItem.id}}</td>
+            <td>{{blogItem.title}}</td>
+            <td>{{blogItem.commit_date.substr(0, 19)}}</td>
+            <td>{{blogItem.lasted_update_date.substr(0, 19)}}</td>
+            <td>{{blogItem.read_count}}</td>
+            <td class="mdl-data-table__cell--non-numeric" :formatter="themeFormatter">{{blogItem.theme_id}}</td>
+            <td class="mdl-data-table__cell--non-numeric">{{blogItem.readable}}</td>
+            <td>
+                <button class="margin-right-5px mdl-button mdl-js-button mdl-button--primary mdl-button--raised" @click="openBlog(blogItem.id)">开启</button>
+                <button class="margin-right-5px mdl-button mdl-js-button mdl-button--raised" @click="closeBlog(blogItem.id)">关闭</button>
+                <button class="margin-right-5px mdl-button mdl-js-button mdl-button--raised mdl-button--accent" @click="editBlog(blogItem.id)">编辑</button>
+            </td>
+        </tr>
         </tbody>
     </table>
 </div>
 </body>
+<script>
+    var app = new Vue({
+        el: '#blogTable',
+        data: {
+            blogList: []
+        },
+        created: function () {
+            this.queryBlogList();
+        },
+        methods: {
+            queryBlogList() {
+                let _this = this;
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "/blog/get_all_blog/", true);
+                xhr.setRequestHeader("content-type", "application/json");
+                xhr.send();
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        var list = JSON.parse(response['response_data']);
+                        console.log(list);
+                        _this.blogList = list;
+                    }
+                };
+            },
+            newBlog() {
+                window.location.href = "/blog/blog_edit?mode=create";
+            },
+            editBlog(id) {
+                window.location.href = "/blog/blog_edit?mode=update&id=" + id;
+            },
+            closeBlog(id) {
+                let xhr = new XMLHttpRequest();
+                let form = new FormData();
+                form.append('id', id);
+                xhr.open("POST", "/blog/close_blog", true);
+                xhr.send(form);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        let response  = JSON.parse(xhr.responseText);
+                        if(response.response_code == '200'){
+                            alert("关闭成功");
+                        }
+                    }
+                }
+            },
+            openBlog(id) {
+                let xhr = new XMLHttpRequest();
+                let form = new FormData();
+                form.append('id', id);
+                xhr.open("POST", "/blog/open_blog", true);
+                xhr.send(form);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        let response  = JSON.parse(xhr.responseText);
+                        if(response.response_code == '200'){
+                            alert("开启成功");
+                        }
+                    }
+                }
+            },
+            themeFormatter() {
+                return '?';
+            }
+        }
+    })
+</script>
 </html>
