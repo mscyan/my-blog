@@ -27,28 +27,30 @@ public class MyFilter implements Filter {
         if(((HttpServletRequest) request).getServletPath().equals("/favicon.ico")){
             ((HttpServletResponse) response).sendRedirect("/static/favicon.ico");
         }
-        boolean hasPrivilege = false;
-        for(Cookie cook : cookies){
-            if(cook.getName().equals("a2V5")){
-                if(cook.getValue().equals("eW91a25vd3doYXQ=")){
-                    hasPrivilege = true;
-                    filterChain.doFilter(request, response);
-                    return;
-                }
-            }
-        }
-        if(!hasPrivilege){
-            if(((HttpServletRequest) request).getServletPath().startsWith("/door") ||
-            ((HttpServletRequest) request).getServletPath().startsWith("/static") ||
-            ((HttpServletRequest) request).getServletPath().startsWith("/pic/getpic") ||
-            ((HttpServletRequest) request).getServletPath().equals("/") ||
-            ((HttpServletRequest) request).getServletPath().startsWith("/blog/get")){
-                filterChain.doFilter(request, response);
-            }
-            else{
-
-            }
-        }
+        filterChain.doFilter(request, response);
+//        boolean hasPrivilege = false;
+//        for(Cookie cook : cookies){
+//            if(cook.getName().equals("a2V5")){
+//                if(cook.getValue().equals("eW91a25vd3doYXQ=")){
+//                    hasPrivilege = true;
+//                    filterChain.doFilter(request, response);
+//                    return;
+//                }
+//            }
+//        }
+//        if(!hasPrivilege){
+//            if(((HttpServletRequest) request).getServletPath().startsWith("/door") ||
+//            ((HttpServletRequest) request).getServletPath().startsWith("/static") ||
+//            ((HttpServletRequest) request).getServletPath().startsWith("/pic/getpic") ||
+//            ((HttpServletRequest) request).getServletPath().equals("/") ||
+//            ((HttpServletRequest) request).getServletPath().equals("/ueditor") ||
+//            ((HttpServletRequest) request).getServletPath().startsWith("/blog/get")){
+//                filterChain.doFilter(request, response);
+//            }
+//            else{
+//
+//            }
+//        }
     }
 
     @Override

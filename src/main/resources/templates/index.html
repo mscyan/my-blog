@@ -7,102 +7,112 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 	<link rel="stylesheet" href="/static/mdl/material.css"/>
 	<link rel="stylesheet" href="/static/mdl/style.css"/>
-	<script src="/static/js/vue.js"></script>
-    <style>
-        li{
-            list-style-type: none;
-        }
-		.header-icon-span {
-			margin-right: 5px;
+	<!--<script src="/static/js/vue.js"></script>-->
+	<style>
+		body{
+			width: 800px;
 		}
-		/*#app .uk-container{*/
-		/*	padding: 0px 5px;*/
-		/*}*/
-		.uk-container {
-		 	max-width: 1000px;
-			padding: 0 35px;
-		}
-    </style>
+	</style>
 </head>
 <body>
-	<div class="uk-block uk-block-secondary uk-contrast">
-		<div class="uk-container uk-container-center">
-			<h2 class=" uk-responsive-width">颜超——Java Developer</h2>
-		</div>
-		<div class="uk-container uk-container-center">
-			<span class="header-icon-span"><a target="_blank" href="https://github.com/mscyan" class="uk-icon-button uk-icon-hover uk-icon-github icon"></a></span>
-			<span class="header-icon-span"><a target="_blank" href="https://stackoverflow.com/users/8979577/yanchao" class="uk-icon-button uk-icon-hover uk-icon-stack-overflow icon"></a></span>
-			<span class="header-icon-span"><a target="_blank" href="https://twitter.com/CHAOSCYAN" class="uk-icon-button uk-icon-hover uk-icon-twitter icon"></a></span>
-		</div>
-	</div>
-	<div id="app">
-		<div class="uk-block">
-			<div class="uk-container-center uk-container">
-				<div v-for="item in blogList" class="uk-flex uk-flex-center">
 
-					<div class="mdl-grid mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-card mdl-shadow--4dp">
-						<div v-if="item.hasCover" class="mdl-card__media mdl-cell mdl-cell--12-col-tablet">
-							<img class="article-image" :src="item.coverImageUrl" border="0" alt="">
-						</div>
-						<div v-if="!item.hasCover" class="mdl-cell mdl-cell--12-col">
-							<h2 class="mdl-card__title-text"><a :href=" '/blog/get_page?id=' + item.id">{{item.title}}</a></h2>
-							<div class="mdl-card__supporting-text padding-top">
-								<span>Posted at {{item.commitDate.substr(0, 10)}}</span>
-							</div>
-							<div class="mdl-card__supporting-text no-left-padding">
-								<p>{{item.contentAbstract}} </p>
-								<span>Category: <a>Latest</a></span>
-							</div>
-						</div>
-						<div v-else class="mdl-cell mdl-cell--8-col">
-							<h2 class="mdl-card__title-text"><a :href=" '/blog/get_page?id=' + item.id">{{item.title}}</a></h2>
-							<div class="mdl-card__supporting-text padding-top">
-								<span>Posted at {{item.commitDate.substr(0, 10)}}</span>
-							</div>
-							<div class="mdl-card__supporting-text no-left-padding">
-								<p>{{item.contentAbstract}}</p>
-								<span>Category: <a>Latest</a></span>
-							</div>
-						</div>
-					</div>
-				</div>
+<script id="container" name="content" type="text/plain">
 
-			</div>
-		</div>
-	</div>
+</script>
+<script type="text/javascript" src="/static/utf8-jsp/ueditor.config.js"></script>
+<script type="text/javascript" src="/static/utf8-jsp/ueditor.all.js"></script>
+<script type="text/javascript">
+	window.UEDITOR_HOME_URL = "http://127.0.0.1:8080/uploadFile";
+	UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+	UE.Editor.prototype.getActionUrl = function(action) {
+		if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
+			return '/uploadFile';
+		} else {
+			return this._bkGetActionUrl.call(this, action);
+		}
+	}
+	var ue = UE.getEditor('container', {
+		autoHeight: false
+	});
+</script>
+	<!--<div class="uk-block uk-block-secondary uk-contrast">-->
+		<!--<div class="uk-container uk-container-center">-->
+			<!--<h2 class=" uk-responsive-width">颜超——Java Developer</h2>-->
+		<!--</div>-->
+		<!--<div class="uk-container uk-container-center">-->
+			<!--<span class="header-icon-span"><a target="_blank" href="https://github.com/mscyan" class="uk-icon-button uk-icon-hover uk-icon-github icon"></a></span>-->
+			<!--<span class="header-icon-span"><a target="_blank" href="https://stackoverflow.com/users/8979577/yanchao" class="uk-icon-button uk-icon-hover uk-icon-stack-overflow icon"></a></span>-->
+			<!--<span class="header-icon-span"><a target="_blank" href="https://twitter.com/CHAOSCYAN" class="uk-icon-button uk-icon-hover uk-icon-twitter icon"></a></span>-->
+		<!--</div>-->
+	<!--</div>-->
+	<!--<div id="app">-->
+		<!--<div class="uk-block">-->
+			<!--<div class="uk-container-center uk-container">-->
+				<!--<div v-for="item in blogList" class="uk-flex uk-flex-center">-->
+
+					<!--<div class="mdl-grid mdl-cell mdl-cell&#45;&#45;12-col mdl-cell&#45;&#45;4-col-tablet mdl-card mdl-shadow&#45;&#45;4dp">-->
+						<!--<div v-if="item.hasCover" class="mdl-card__media mdl-cell mdl-cell&#45;&#45;12-col-tablet">-->
+							<!--<img class="article-image" :src="item.coverImageUrl" border="0" alt="">-->
+						<!--</div>-->
+						<!--<div v-if="!item.hasCover" class="mdl-cell mdl-cell&#45;&#45;12-col">-->
+							<!--<h2 class="mdl-card__title-text"><a :href=" '/blog/get_page?id=' + item.id">{{item.title}}</a></h2>-->
+							<!--<div class="mdl-card__supporting-text padding-top">-->
+								<!--<span>Posted at {{item.commitDate.substr(0, 10)}}</span>-->
+							<!--</div>-->
+							<!--<div class="mdl-card__supporting-text no-left-padding">-->
+								<!--<p>{{item.contentAbstract}} </p>-->
+								<!--<span>Category: <a>Latest</a></span>-->
+							<!--</div>-->
+						<!--</div>-->
+						<!--<div v-else class="mdl-cell mdl-cell&#45;&#45;8-col">-->
+							<!--<h2 class="mdl-card__title-text"><a :href=" '/blog/get_page?id=' + item.id">{{item.title}}</a></h2>-->
+							<!--<div class="mdl-card__supporting-text padding-top">-->
+								<!--<span>Posted at {{item.commitDate.substr(0, 10)}}</span>-->
+							<!--</div>-->
+							<!--<div class="mdl-card__supporting-text no-left-padding">-->
+								<!--<p>{{item.contentAbstract}}</p>-->
+								<!--<span>Category: <a>Latest</a></span>-->
+							<!--</div>-->
+						<!--</div>-->
+					<!--</div>-->
+				<!--</div>-->
+
+			<!--</div>-->
+		<!--</div>-->
+	<!--</div>-->
 </body>
 <script>
-	var app = new Vue({
-		el: '#app',
-		data: {
-			project: 'my blog',
-			blogList: []
-		},
-		created: function() {
-			this.getBlogData();
-		},
-		// mounted: function() {
-		// 	this.blogList = [];
-		// },
-		methods: {
-			getBlogData: function() {
-				let _this = this;
-				_this.blogList = [];
-				let xhr = new XMLHttpRequest();
-				xhr.open("GET", "/blog/getBlog/", true);
-				xhr.setRequestHeader("content-type", "application/json");
-				xhr.send();
-				xhr.onreadystatechange = function(){
-					if(xhr.readyState === 4 && xhr.status === 200){
-						let response = JSON.parse(xhr.responseText);
-						let list = JSON.parse(response['response_data']);
-						for(let i=0; i<list.length; i++){
-							_this.blogList.push(list[i]);
-						}
-					}
-				}
-			}
-		}
-	})
+	// var app = new Vue({
+	// 	el: '#app',
+	// 	data: {
+	// 		project: 'my blog',
+	// 		blogList: []
+	// 	},
+	// 	created: function() {
+	// 		this.getBlogData();
+	// 	},
+	// 	// mounted: function() {
+	// 	// 	this.blogList = [];
+	// 	// },
+	// 	methods: {
+	// 		getBlogData: function() {
+	// 			let _this = this;
+	// 			_this.blogList = [];
+	// 			let xhr = new XMLHttpRequest();
+	// 			xhr.open("GET", "/blog/getBlog/", true);
+	// 			xhr.setRequestHeader("content-type", "application/json");
+	// 			xhr.send();
+	// 			xhr.onreadystatechange = function(){
+	// 				if(xhr.readyState === 4 && xhr.status === 200){
+	// 					let response = JSON.parse(xhr.responseText);
+	// 					let list = JSON.parse(response['response_data']);
+	// 					for(let i=0; i<list.length; i++){
+	// 						_this.blogList.push(list[i]);
+	// 					}
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// })
 </script>
 </html>
