@@ -42,3 +42,8 @@ logging:
 
 pic_folder: C:\\Users\\Akazam\\Desktop\\simages
 pic_save_path: C:\\Users\\Akazam\\Desktop
+
+access_key: qZ9FKuHUuhiT8-tvaW8mkMWiCd-a7scNkzrQujhN
+secret_key: Zn9uo8dSvnnBFKPsLPJXsyiOjq90TrjwTR4-I165
+bucket_name: zelcyan-img
+account_mail: zelcyan@gmail.com

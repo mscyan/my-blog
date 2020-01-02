@@ -1,7 +1,10 @@
 package com;
 
 import com.alibaba.druid.support.json.JSONUtils;
+import com.article.manager.CommonFileManager;
 import com.baidu.ueditor.ActionEnter;
+import com.qiniu.common.QiniuException;
+import com.qiniu.util.Auth;
 import io.swagger.annotations.Api;
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
@@ -9,6 +12,7 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.util.Streams;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +37,9 @@ import java.util.Map;
 @Api(value = "Home", description = "Home", tags = "主页")
 public class HomeController {
 
+    @Autowired
+    private CommonFileManager commonFileManager;
+
     @RequestMapping(value = "home", method = RequestMethod.GET)
     @ResponseBody
     public String home(){
@@ -53,19 +60,22 @@ public class HomeController {
     @RequestMapping(value = "/ueditor/commonDispatcher")
     @ResponseBody
     public String dispatcher(HttpServletRequest request,
-                             MultipartFile file,
-                             HttpServletResponse response) {
+                             MultipartFile upfile,
+                             HttpServletResponse response) throws IOException {
 
         String action = request.getParameter("action");
 
         if(action.equals("uploadFile")){
+
+            String hash = commonFileManager.uploadFileToQiniu(upfile);
+
             Map<String, Object> map = new HashMap<>();
             map.put("state", "SUCCESS") ;
             map.put("original", "abc.jpg") ;
             map.put("size", 12312) ;
             map.put("title", "abc.jpg") ;
             map.put("type", "jpg") ;
-            map.put("url", "http://www.jiajiajia.club:8089/a.png") ;
+            map.put("url", "http://img.zelcyan.cn/" + hash) ;
 
 
             return JSONUtils.toJSONString(map);
@@ -167,89 +177,14 @@ public class HomeController {
                 "}";
     }
 
-    @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> ueUpload(HttpServletRequest request,
-                                        HttpServletResponse response,
-                                        @PathVariable String appPath) throws IllegalStateException, IOException,
-            FileUploadException {
-
-        Map<String, Object> m = new HashMap<String, Object>();
-        // 对上传文件夹和临时文件夹进行初始化
-        String rootDir = "C:\\projects\\pic";
-
-        String tmpDir = rootDir + "/tmp";
-        File tmpDirPath = new File(tmpDir);
-
-        if (ServletFileUpload.isMultipartContent(request)) {
-            request.setCharacterEncoding("utf-8");
-
-
-            DiskFileItemFactory dff = new DiskFileItemFactory();// 创建该对象
-            dff.setRepository(tmpDirPath);// 指定上传文件的临时目录
-            dff.setSizeThreshold(2 * 1024 * 1024);// 指定在内存中缓存数据大小,单位为byte
-            ServletFileUpload sfu = new ServletFileUpload(dff);// 创建该对象
-            sfu.setFileSizeMax(1000000000);// 指定单个上传文件的最大尺寸
-            sfu.setSizeMax(1000000000);// 指定一次上传多个文件的总尺寸
-            FileItemIterator fii = sfu.getItemIterator(request);// 解析request
-            // 请求,并返回FileItemIterator集合
-            while (fii.hasNext()) {
-                FileItemStream fis = fii.next();// 从集合中获得一个文件流
-                if (!fis.isFormField() && fis.getName().length() > 0) {// 过滤掉表单中非文件域
-
-                    String filename = fis.getName();
-
-                    String[] FileName = filename.split("\\.");
-
-                    String preFile = FileName[0];
-                    String endFile = FileName[1];
-
-
-                    Date date = new Date();
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-                    String nowdate = sdf.format(date);
-
-
-                    String newFileName = preFile + "_" + nowdate + "." + endFile;
-
-                    appPath = appPath.trim().replaceAll("\\.", "/");
-
-                    File appDir = new File(rootDir + "/" + appPath);
-                    if (!appDir.isDirectory()) {
-
-                        appDir.mkdir();
-                    }
-                    // 创建按月分类的子文件夹
-                    String currentMonth = "sdf"; //new DateUnit().getTheFormatDate(new Date(), "yyyyMM");
-                    File appSubDir = new File(appDir + "/" + currentMonth);
-                    if (!appSubDir.isDirectory()) {
-                        appSubDir.mkdir();
-                    }
-
-                    String newFilepath = appSubDir + "/" + newFileName;
-
-                    BufferedInputStream in = new BufferedInputStream(fis.openStream());// 获得文件输入流
-                    BufferedOutputStream out =
-                            new BufferedOutputStream(new FileOutputStream(new File(newFilepath)));// 获得文件输出流
-                    Streams.copy(in, out, true);// 开始把文件写到你指定的上传文件夹
-                    m.put("path", appPath + "/" + currentMonth + "/");
-                    m.put("filename", newFileName);
-
-                    m.put("original", filename);
-                    m.put("name", newFileName);
-                    m.put("url", appPath + "/" + currentMonth + "/"+newFileName);
-                    m.put("state", "SUCCESS");
-                    m.put("type", ".jpg");
-                    m.put("size", "99697");
-
-                }
-            }
-        }
-
-        return m;
-    }
 
     public static void main(String[] args){
         //;
+        String accessKey = "qZ9FKuHUuhiT8-tvaW8mkMWiCd-a7scNkzrQujhN";
+        String secretKey = "Zn9uo8dSvnnBFKPsLPJXsyiOjq90TrjwTR4-I165";
+        String bucket_name = "zelcyan-img";
+        Auth auth = Auth.create(accessKey, secretKey);
+        String upToken = auth.uploadToken(bucket_name);
+        System.out.println(upToken);
     }
 }

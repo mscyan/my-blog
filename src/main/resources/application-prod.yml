@@ -42,3 +42,9 @@ logging:
 
 pic_folder: /home/yanchao/person_files
 pic_save_path: /home/yanchao/person_files
+
+
+access_key: qZ9FKuHUuhiT8-tvaW8mkMWiCd-a7scNkzrQujhN
+secret_key: Zn9uo8dSvnnBFKPsLPJXsyiOjq90TrjwTR4-I165
+bucket_name: zelcyan-img
+account_mail: zelcyan@gmail.com
