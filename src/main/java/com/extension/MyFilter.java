@@ -27,6 +27,8 @@ public class MyFilter implements Filter {
         if(((HttpServletRequest) request).getServletPath().equals("/favicon.ico")){
             ((HttpServletResponse) response).sendRedirect("/static/favicon.ico");
         }
+
+        System.out.println(((HttpServletRequest) request).getServletPath());
         filterChain.doFilter(request, response);
 //        boolean hasPrivilege = false;
 //        for(Cookie cook : cookies){

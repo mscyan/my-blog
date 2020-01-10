@@ -16,23 +16,36 @@
 </head>
 <body>
 
+<div>
+
+	abdcad
+</div>
+<img src="http://img.zelcyan.cn/FmW9I-HhEOE_XPRNky2A0agsxYik" title="abc.jpg" alt="abc.jpg"/>
+
+
+
 <script id="container" name="content" type="text/plain">
 
 </script>
-<script type="text/javascript" src="/static/utf8-jsp/ueditor.config.js"></script>
-<script type="text/javascript" src="/static/utf8-jsp/ueditor.all.js"></script>
+<div>
+
+	abdcad
+</div>
+<img src="http://img.zelcyan.cn/FmW9I-HhEOE_XPRNky2A0agsxYik" title="abc.jpg" alt="abc.jpg"/>
+
+
+<div>
+
+	abdcad
+</div>
+<img src="http://img.zelcyan.cn/FmW9I-HhEOE_XPRNky2A0agsxYik" title="abc.jpg" alt="abc.jpg"/>
+
+
+<script type="text/javascript" src="/static/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="/static/ueditor/ueditor.all.js"></script>
 <script type="text/javascript">
-	window.UEDITOR_HOME_URL = "http://127.0.0.1:8080/uploadFile";
-	UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
-	UE.Editor.prototype.getActionUrl = function(action) {
-		if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
-			return '/uploadFile';
-		} else {
-			return this._bkGetActionUrl.call(this, action);
-		}
-	}
 	var ue = UE.getEditor('container', {
-		autoHeight: false
+		autoHeight: true
 	});
 </script>
 	<!--<div class="uk-block uk-block-secondary uk-contrast">-->

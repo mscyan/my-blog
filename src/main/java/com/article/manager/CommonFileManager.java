@@ -1,9 +1,5 @@
 package com.article.manager;
 
-import com.alibaba.druid.support.json.JSONUtils;
-import com.alibaba.fastjson.JSON;
-import com.article.bean.UploadFileResponseBean;
-import com.qiniu.common.QiniuException;
 import com.qiniu.common.Zone;
 import com.qiniu.http.Response;
 import com.qiniu.storage.Configuration;
@@ -15,11 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
 
 @Component
 public class CommonFileManager {
@@ -47,6 +39,7 @@ public class CommonFileManager {
         String hash = (String) map.get("hash");
         return hash;
     }
+
 
     public String getFileFromQiniu(String reqId) {
         reqId = "9g4AAAAM4M07HuYV";
