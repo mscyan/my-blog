@@ -76,13 +76,14 @@
         </thead>
         <tbody>
         <tr v-for="blogItem in blogList">
+            <td></td>
             <td>{{blogItem.id}}</td>
             <td>{{blogItem.title}}</td>
             <td>{{blogItem.commit_date.substr(0, 19)}}</td>
             <td>{{blogItem.lasted_update_date.substr(0, 19)}}</td>
             <td>{{blogItem.read_count}}</td>
-            <td class="mdl-data-table__cell--non-numeric" :formatter="themeFormatter">{{blogItem.theme_id}}</td>
-            <td class="mdl-data-table__cell--non-numeric">{{blogItem.readable}}</td>
+            <td class="mdl-data-table__cell--non-numeric">{{blogItem.theme_id}}</td>
+            <td class="mdl-data-table__cell--non-numeric">{{blogItem.readable == 1 ? '已开启' : '已关闭'}}</td>
             <td>
                 <button class="margin-right-5px mdl-button mdl-js-button mdl-button--primary mdl-button--raised" @click="openBlog(blogItem.id)">开启</button>
                 <button class="margin-right-5px mdl-button mdl-js-button mdl-button--raised" @click="closeBlog(blogItem.id)">关闭</button>
@@ -127,6 +128,7 @@
             closeBlog(id) {
                 let xhr = new XMLHttpRequest();
                 let form = new FormData();
+                let _this = this;
                 form.append('id', id);
                 xhr.open("POST", "/blog/close_blog", true);
                 xhr.send(form);
@@ -135,6 +137,9 @@
                         let response  = JSON.parse(xhr.responseText);
                         if(response.response_code == '200'){
                             alert("关闭成功");
+                            _this.queryBlogList();
+                        } else {
+                            alert("关闭失败");
                         }
                     }
                 }
@@ -142,6 +147,7 @@
             openBlog(id) {
                 let xhr = new XMLHttpRequest();
                 let form = new FormData();
+                let _this = this;
                 form.append('id', id);
                 xhr.open("POST", "/blog/open_blog", true);
                 xhr.send(form);
@@ -150,6 +156,9 @@
                         let response  = JSON.parse(xhr.responseText);
                         if(response.response_code == '200'){
                             alert("开启成功");
+                            _this.queryBlogList();
+                        } else {
+                            alert("开启失败");
                         }
                     }
                 }
