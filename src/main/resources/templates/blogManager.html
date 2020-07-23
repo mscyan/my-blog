@@ -78,15 +78,15 @@
         <tr v-for="blogItem in blogList">
             <td></td>
             <td>{{blogItem.id}}</td>
-            <td>{{blogItem.title}}</td>
+            <td>{{blogItem.title.length > 50 ? blogItem.title.substr(0, 50) : blogItem.title}}</td>
             <td>{{blogItem.commit_date.substr(0, 19)}}</td>
             <td>{{blogItem.lasted_update_date.substr(0, 19)}}</td>
             <td>{{blogItem.read_count}}</td>
             <td class="mdl-data-table__cell--non-numeric">{{blogItem.theme_id}}</td>
             <td class="mdl-data-table__cell--non-numeric">{{blogItem.readable == 1 ? '已开启' : '已关闭'}}</td>
             <td>
-                <button class="margin-right-5px mdl-button mdl-js-button mdl-button--primary mdl-button--raised" @click="openBlog(blogItem.id)">开启</button>
-                <button class="margin-right-5px mdl-button mdl-js-button mdl-button--raised" @click="closeBlog(blogItem.id)">关闭</button>
+                <button v-if="blogItem.readable != 1" class="margin-right-5px mdl-button mdl-js-button mdl-button--primary mdl-button--raised" @click="openBlog(blogItem.id)">开启</button>
+                <button v-if="blogItem.readable == 1" class="margin-right-5px mdl-button mdl-js-button mdl-button--raised" @click="closeBlog(blogItem.id)">关闭</button>
                 <button class="margin-right-5px mdl-button mdl-js-button mdl-button--raised mdl-button--accent" @click="editBlog(blogItem.id)">编辑</button>
             </td>
         </tr>
