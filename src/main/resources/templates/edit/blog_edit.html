@@ -169,7 +169,8 @@
     }
 
     function getHtmlPreviewData(){
-        return editor.getHTML();
+        // return editor.getHTML();
+        return document.getElementsByClassName('markdown-body editormd-preview-container')[0].outerHTML;
     }
 
     function _commit_blog(){
