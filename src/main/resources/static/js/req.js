@@ -1,7 +1,6 @@
 function upload_file(url, method){
     var fileBtn = document.getElementById("file");
 
-    // console.log(fileBtn.files[0]);
     if(fileBtn.files[0] === undefined){
         alert("please select a file");
     }
