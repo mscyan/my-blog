@@ -2,7 +2,7 @@ package com.blog.bean;
 
 public class Blog {
 
-    private int id;
+    private Integer id;
     private int theme_id;
     private String title;
     private String content_abstract;
@@ -22,11 +22,11 @@ public class Blog {
         this.markdown_content = markdown_content;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

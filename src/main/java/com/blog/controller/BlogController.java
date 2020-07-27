@@ -6,15 +6,13 @@ import com.blog.service.BlogService;
 import com.blog.service.ThemeService;
 import com.utils.DateUtil;
 import com.utils.ResponseData;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
-@Api(value = "/Blog", description = "Blog包下内容")
 @RequestMapping(value = "/blog")
 public class BlogController {
 
@@ -45,9 +43,6 @@ public class BlogController {
         return "";
     }
 
-
-
-    @ApiOperation(value = "获取Blog")
     @ResponseBody
     @RequestMapping(value = {"/getBlog/{theme}", "/getBlog"}, method = RequestMethod.GET)
     public ResponseData getBlogList(@PathVariable(required = false) String theme){
@@ -136,6 +131,12 @@ public class BlogController {
 
         Integer result = blogService.insertOneBlog(blog);
         return new ResponseData(200, result, "add blog success");
+    }
+
+    @RequestMapping(value = "/saveOrUpdate", method = RequestMethod.POST)
+    public ResponseData saveOrUpdate(@RequestBody Blog blog, HttpServletRequest request) {
+        blogService.saveOrUpdate(blog);
+        return new ResponseData(200, blog.getId(), "保存成功");
     }
 
     @RequestMapping(value = "close_blog", method = RequestMethod.POST)

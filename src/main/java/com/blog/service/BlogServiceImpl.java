@@ -95,4 +95,15 @@ public class BlogServiceImpl implements BlogService {
         blogMapper.openBlog(id);
         return new ResponseData();
     }
+
+    @Override
+    public void saveOrUpdate(Blog blog) {
+        if(blog.getId() != null) {
+            blogMapper.updateBlog(blog);
+        } else {
+            blog.setRead_count(0);
+            blog.setReadable(1);
+            blogMapper.insertBlog(blog);
+        }
+    }
 }

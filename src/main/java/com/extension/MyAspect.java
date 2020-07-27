@@ -64,6 +64,6 @@ public class MyAspect {
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
-        return new ResponseData(500, "error", "controllerError");
+        return new ResponseData(500, "error", "操作执行失败");
     }
 }

@@ -12,7 +12,7 @@
         values
         (#{blog.theme_id}, #{blog.title}, #{blog.content_abstract}, #{blog.markdown_content},
         #{blog.html_content},
-        #{blog.commit_date}, #{blog.lasted_update_date}, #{blog.read_count}, #{blog.readable}, #{blog.cover_image})
+        now(), now(), #{blog.read_count}, #{blog.readable}, #{blog.cover_image})
     </insert>
 
     <select id="getAlgorithmBlogs" resultType="com.blog.bean.Blog">

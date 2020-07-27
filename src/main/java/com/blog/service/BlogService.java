@@ -25,4 +25,6 @@ public interface BlogService {
     ResponseData closeBlog(int id);
 
     ResponseData openBlog(int id);
+
+    void saveOrUpdate(Blog blog);
 }
