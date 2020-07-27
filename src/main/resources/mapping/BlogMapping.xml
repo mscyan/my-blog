@@ -5,7 +5,7 @@
 <mapper namespace="com.blog.mapper.BlogMapper">
 
     <!--测试事务回滚特性的语句-->
-    <insert id="insertBlog" parameterType="com.blog.bean.Blog">
+    <insert id="insertBlog" parameterType="com.blog.bean.Blog" keyProperty="blog.id" useGeneratedKeys="true">
         insert into blog
         (theme_id, title, content_abstract, markdown_content, html_content, commit_date,
         lasted_update_date, read_count, readable, cover_image)

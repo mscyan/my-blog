@@ -9,7 +9,7 @@
     <script src="/static/js/req.js"></script>
     <link rel="stylesheet" href="/static/mdl/material.css"/>
     <link rel="stylesheet" href="/static/mdl/style.css"/>
-<!--    <script src="/static/js/vue.js"></script>-->
+    <script src="/static/js/vue.js"></script>
     <script>
         function pullThemesFromBack(){
             var xhr = new XMLHttpRequest();
@@ -47,11 +47,11 @@
             <div class="uk-form uk-form-horizontal">
                 <div class="uk-form-row">
                     <label class="uk-text-primary uk-form-label"  for="title">博客的标题：</label>
-                    <input type="text" class="uk-form-width-large" id="title" />
+                    <input v-model="title" type="text" class="uk-form-width-large" id="title" />
                 </div>
                 <div class="uk-form-row">
                     <label class="uk-text-primary uk-form-label"  for="title">博客封面图：</label>
-                    <input type="text" class="uk-form-width-large" id="cover" />
+                    <input v-model="cover_image" type="text" class="uk-form-width-large" id="cover" />
                 </div>
                 <div class="uk-form-row">
                     <label class="uk-text-primary uk-form-label"  for="theme_selection">博客的主题：</label>
@@ -61,11 +61,12 @@
                 </div>
                 <div class="uk-form-row">
                     <label class="uk-text-primary uk-form-label"  for="content-abstract">博客概要介绍：</label>
-                    <textarea rows="3" cols="80" style="resize: none;" draggable="false" id="content-abstract" ></textarea>
+                    <textarea v-model="content_abstract" rows="3" cols="80" style="resize: none;" draggable="false" id="content-abstract" ></textarea>
                 </div>
                 <div class="uk-form-row">
                     <label class="uk-text-primary uk-form-label"  for="content-abstract">操作：</label>
-                    <button type="button" class="mdl-button mdl-button--raised mdl-js-ripple-effect" onclick="_commit_blog()">保存</button>
+<!--                    <button type="button" class="mdl-button mdl-button&#45;&#45;raised mdl-js-ripple-effect" onclick="_commit_blog()">保存</button>-->
+                    <button type="button" class="mdl-button mdl-button--raised mdl-js-ripple-effect" @click="saveOrUpdate">保存</button>
 <!--                    <button type="button" class="uk-button uk-button-primary">可见</button>-->
                 </div>
             </div>
@@ -124,6 +125,68 @@
         });
     });
 
+    var app = new Vue({
+        el: '#top-panel',
+        data: {
+            id: null,
+            title: '',
+            content_abstract: '',
+            cover_image: ''
+        },
+        created: function() {
+            this.getEditingId();
+            console.log(this.id);
+        },
+        mounted: function() {
+
+        },
+        methods: {
+            getEditingId() {
+                let _this = this;
+                var parameters = window.location.search.substr(1);
+                if(parameters.length > 5){
+                    var paras = parameters.split('&');
+                    if(paras[0].split('=')[0] === 'mode'){
+                        if(paras[0].split('=')[1] === 'update'){
+                            if(paras[1].split('=')[0] === 'id'){
+                                var id = parseInt(paras[1].split('=')[1]);
+                                _this.id = id;
+                            }
+                        }
+                    }
+                }
+            },
+            saveOrUpdate: function() {
+                let _this = this;
+                let markdownContent = editor.getMarkdown();
+                let htmlContent = document.getElementsByClassName('markdown-body editormd-preview-container')[0].outerHTML;
+                let req = {
+                    id: _this.id,
+                    title: _this.title,
+                    content_abstract: _this.content_abstract,
+                    markdown_content: markdownContent,
+                    html_content: htmlContent,
+                    cover_image: _this.image
+                }
+                let xhr = new XMLHttpRequest();
+                xhr.open("POST", "/blog/saveOrUpdate", true);
+                xhr.setRequestHeader("content-type", "application/json");
+                xhr.send(JSON.stringify(req));
+                xhr.onreadystatechange = function() {
+                    if(xhr.readyState === 4 && xhr.status === 200) {
+                        let response = JSON.parse(xhr.responseText);
+                        if(response.response_code === 200) {
+                            _this.id = response.response_data;
+                            if(response.remark) {
+                                alert(response.remark)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    })
+
     function loadData(){
         let blog = null;
         var parameters = window.location.search.substr(1);
@@ -152,7 +215,7 @@
                                 for(var i=0; i<select.options.length; i++){
                                     if(select.options[i].value == blog.theme_id){
                                         select.options[i].selected = true;
-                                        console.log(select.options[i].value);
+                                        // console.log(select.options[i].value);
                                         break;
                                     }
                                 }

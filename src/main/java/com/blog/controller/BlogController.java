@@ -133,6 +133,7 @@ public class BlogController {
         return new ResponseData(200, result, "add blog success");
     }
 
+    @ResponseBody
     @RequestMapping(value = "/saveOrUpdate", method = RequestMethod.POST)
     public ResponseData saveOrUpdate(@RequestBody Blog blog, HttpServletRequest request) {
         blogService.saveOrUpdate(blog);
