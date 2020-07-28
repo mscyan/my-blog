@@ -45,7 +45,6 @@
         </thead>
         <tbody>
         <tr v-for="blogItem in blogList">
-            <td></td>
             <td>{{blogItem.id}}</td>
             <td>{{blogItem.title.length > 50 ? blogItem.title.substr(0, 50) : blogItem.title}}</td>
             <td>{{blogItem.commit_date.substr(0, 19)}}</td>

@@ -5,7 +5,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://47.101.54.248:3306/myblog?useSSL=true&charset=utf8
+    url: jdbc:mysql://192.168.199.164:3306/myblog?useSSL=true&charset=utf8
     username: root
     password: 1234
     type: com.alibaba.druid.pool.DruidDataSource
@@ -40,5 +40,5 @@ logging:
       blog:
         mapper: debug
 
-pic_folder: C:\\Users\\Akazam\\Desktop\\simages
-pic_save_path: C:\\Users\\Akazam\\Desktop
+pic_folder: C:\Users\yanchao\Desktop\files
+pic_save_path: C:\Users\yanchao\Desktop\files
