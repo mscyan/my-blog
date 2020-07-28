@@ -47,7 +47,6 @@
         markdown_content = #{blog.markdown_content},
         html_content = #{blog.html_content},
         lasted_update_date = now(),
-        readable = #{blog.readable},
         cover_image = #{blog.cover_image}
         where id = #{blog.id}
     </update>

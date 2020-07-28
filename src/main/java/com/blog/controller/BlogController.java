@@ -78,30 +78,30 @@ public class BlogController {
         return responseData;
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/update_blog", method = RequestMethod.POST)
-    public ResponseData updateBlog(@RequestParam("id") Integer id,
-                                   @RequestParam("title") String title,
-                                   @RequestParam("markdown") String markdown,
-                                   @RequestParam("html") String html,
-                                   @RequestParam("theme_id") Integer theme_id,
-                                   @RequestParam("cover_image") String cover_image,
-                                   @RequestParam("content_abstract") String content_abstract){
-        String currentTime = DateUtil.getCurrentTime();
-        Blog blog = new Blog();
-        blog.setId(id);
-        blog.setTitle(title);
-        blog.setContent_abstract(content_abstract);
-        blog.setMarkdown_content(markdown);
-        blog.setCover_image(cover_image);
-        blog.setHtml_content(html);
-        blog.setTheme_id(theme_id);
-        blog.setLasted_update_date(currentTime);
-        blog.setReadable(1);
-
-        Integer result = blogService.updateBlog(blog);
-        return new ResponseData(200, result, "update blog success");
-    }
+//    @ResponseBody
+//    @RequestMapping(value = "/update_blog", method = RequestMethod.POST)
+//    public ResponseData updateBlog(@RequestParam("id") Integer id,
+//                                   @RequestParam("title") String title,
+//                                   @RequestParam("markdown") String markdown,
+//                                   @RequestParam("html") String html,
+//                                   @RequestParam("theme_id") Integer theme_id,
+//                                   @RequestParam("cover_image") String cover_image,
+//                                   @RequestParam("content_abstract") String content_abstract){
+//        String currentTime = DateUtil.getCurrentTime();
+//        Blog blog = new Blog();
+//        blog.setId(id);
+//        blog.setTitle(title);
+//        blog.setContent_abstract(content_abstract);
+//        blog.setMarkdown_content(markdown);
+//        blog.setCover_image(cover_image);
+//        blog.setHtml_content(html);
+//        blog.setTheme_id(theme_id);
+//        blog.setLasted_update_date(currentTime);
+//        blog.setReadable(1);
+//
+//        Integer result = blogService.updateBlog(blog);
+//        return new ResponseData(200, result, "update blog success");
+//    }
 
     @ResponseBody
     @RequestMapping(value = "/getThemes", method = RequestMethod.GET)
@@ -110,28 +110,28 @@ public class BlogController {
         return new ResponseData(200, themes, "success");
     }
 
-    @RequestMapping(value = "/commit_blog", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseData commitBlog(@RequestParam("title") String title,
-                                   @RequestParam("markdown") String markdown,
-                                   @RequestParam("html") String html,
-                                   @RequestParam("theme_id") Integer theme_id,
-                                   @RequestParam("content_abstract") String content_abstract){
-        String currentTime = DateUtil.getCurrentTime();
-        Blog blog = new Blog();
-        blog.setTitle(title);
-        blog.setContent_abstract(content_abstract);
-        blog.setMarkdown_content(markdown);
-        blog.setHtml_content(html);
-        blog.setTheme_id(theme_id);
-        blog.setCommit_date(currentTime);
-        blog.setLasted_update_date(currentTime);
-        blog.setRead_count(0);
-        blog.setReadable(1);
-
-        Integer result = blogService.insertOneBlog(blog);
-        return new ResponseData(200, result, "add blog success");
-    }
+//    @RequestMapping(value = "/commit_blog", method = RequestMethod.POST)
+//    @ResponseBody
+//    public ResponseData commitBlog(@RequestParam("title") String title,
+//                                   @RequestParam("markdown") String markdown,
+//                                   @RequestParam("html") String html,
+//                                   @RequestParam("theme_id") Integer theme_id,
+//                                   @RequestParam("content_abstract") String content_abstract){
+//        String currentTime = DateUtil.getCurrentTime();
+//        Blog blog = new Blog();
+//        blog.setTitle(title);
+//        blog.setContent_abstract(content_abstract);
+//        blog.setMarkdown_content(markdown);
+//        blog.setHtml_content(html);
+//        blog.setTheme_id(theme_id);
+//        blog.setCommit_date(currentTime);
+//        blog.setLasted_update_date(currentTime);
+//        blog.setRead_count(0);
+//        blog.setReadable(1);
+//
+//        Integer result = blogService.insertOneBlog(blog);
+//        return new ResponseData(200, result, "add blog success");
+//    }
 
     @ResponseBody
     @RequestMapping(value = "/saveOrUpdate", method = RequestMethod.POST)
